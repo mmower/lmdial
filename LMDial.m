@@ -56,11 +56,13 @@ float deg2rad( float degrees ) {
   [[NSBezierPath bezierPathWithRect:bounds] stroke];
   
   NSBezierPath *segment = [NSBezierPath bezierPath];
-  [segment setLineWidth:2.0];
-  
+  [segment setLineWidth:2.4];
   [offColor set];
   [segment appendBezierPathWithArcWithCenter:centre radius:radius startAngle:-60 endAngle:angle clockwise:NO];
   [segment stroke];
+  
+  segment = [NSBezierPath bezierPath];
+  [segment setLineWidth:2.4];
   [onColor set];
   [segment appendBezierPathWithArcWithCenter:centre radius:radius startAngle:angle endAngle:240 clockwise:NO];
   [segment moveToPoint:centre];
