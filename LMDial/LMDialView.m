@@ -24,6 +24,13 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 
 @implementation LMDialView
 
++ (void)initialize {
+  [self exposeBinding:@"value"];
+  [self exposeBinding:@"minimum"];
+  [self exposeBinding:@"maximum"];
+  [self exposeBinding:@"stepping"];
+}
+
 - (id)initWithFrame:(NSRect)frame {
   if( ( self = [super initWithFrame:frame] ) ) {
     style           = abletonLive;
@@ -121,6 +128,17 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [coder encodeObject:onFillColor forKey:@"lmdial.onFillColor"];
   [coder encodeObject:offBorderColor forKey:@"lmdial.offBorderColor"];
   [coder encodeObject:offFillColor forKey:@"lmdial.offFillColor"];
+}
+
+- (Class)valueClassForBinding:(NSString *)binding {
+  if( [binding isEqualToString:@"value"] ||
+      [binding isEqualToString:@"minimum"] ||
+      [binding isEqualToString:@"maximum"] ||
+      [binding isEqualToString:@"stepping"] ) {
+    return [NSNumber class];
+  } else {
+    return [super valueClassForBinding:binding];
+  }
 }
 
 @synthesize style;
