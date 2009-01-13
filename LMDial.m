@@ -75,6 +75,10 @@ float deg2rad( float degrees ) {
   return NO;
 }
 
+- (BOOL)acceptsFirstMouse {
+  return YES;
+}
+
 - (void)mouseDragged:(NSEvent *)event {
   value += (-[event deltaY] * stepping);
   if( value > maximum ) {
