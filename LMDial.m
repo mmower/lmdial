@@ -19,6 +19,10 @@ float deg2rad( float degrees ) {
   return (degrees * PI) / 180;
 }
 
+NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) {
+  return NSMakePoint( centre.x + ( radius * cos( theta ) ), centre.y + ( radius * sin( theta ) ) );
+}
+
 @implementation LMDial
 
 - (id)initWithFrame:(NSRect)frame {
@@ -50,8 +54,6 @@ float deg2rad( float degrees ) {
   CGFloat radius = bounds.size.width / 3;
   float angle    = 240 - ( 300 * (float)value / ( maximum - minimum ) );
   float theta    = deg2rad( angle );
-  float cx       = radius * cos(theta);
-  float cy       = radius * sin(theta);
   
   [offColor set];
   [[NSBezierPath bezierPathWithRect:bounds] stroke];
@@ -67,7 +69,7 @@ float deg2rad( float degrees ) {
   [onColor set];
   [segment appendBezierPathWithArcWithCenter:centre radius:radius startAngle:angle endAngle:240 clockwise:NO];
   [segment moveToPoint:centre];
-  [segment lineToPoint:NSMakePoint(centre.x + cx, centre.y + cy)];
+  [segment lineToPoint:NSPointOnCircumference( centre, radius, theta )];
   [segment stroke];
 }
 
