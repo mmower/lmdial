@@ -1,9 +1,10 @@
 //
 //  LMDial.m
-//  Dial
+//  Dial Control
 //
 //  Created by Matt Mower on 11/01/2009.
-//  Copyright 2009 LucidMac Software. All rights reserved.
+//  Copyright 2009 Matt Mower
+//  See MIT-LICENSE for usage info
 //
 
 #import "LMDial.h"
