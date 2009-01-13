@@ -27,6 +27,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 
 - (id)initWithFrame:(NSRect)frame {
     if( ( self = [super initWithFrame:frame] ) ) {
+      style           = abletonLive;
       value           = 0;
       minimum         = 0;
       maximum         = 100;
@@ -39,6 +40,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     return self;
 }
 
+@synthesize style;
 @synthesize value;
 @synthesize minimum;
 @synthesize maximum;
@@ -49,6 +51,18 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 @synthesize offColor;
 
 - (void)drawRect:(NSRect)rect {
+  switch( style ) {
+    case abletonLive:
+      [self drawAbletonLiveStyleDial:rect];
+      break;
+      
+    case logicPro:
+      [self drawLogicProStyleDial:rect];
+      break;
+  }
+}
+
+- (void)drawAbletonLiveStyleDial:(NSRect)rect {
   NSRect bounds  = [self bounds];
   NSPoint centre = NSRectCentre( bounds );
   CGFloat radius = bounds.size.width / 3;
@@ -71,6 +85,20 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [segment moveToPoint:centre];
   [segment lineToPoint:NSPointOnCircumference( centre, radius, theta )];
   [segment stroke];
+}
+
+- (void)drawLogicProStyleDial:(NSRect)rect {
+  
+  // NSRect bounds  = [self bounds];
+  // NSPoint centre = NSRectCentre( bounds );
+  
+  // CGFloat outerRadius = bounds.size.width / 2.5;
+  // CGFloat innerRadius = bounds.size.width / 3;
+  
+  
+  
+  
+  
 }
 
 - (BOOL)mouseDownCanMoveWindow {

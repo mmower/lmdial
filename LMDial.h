@@ -9,17 +9,24 @@
 
 #import <Cocoa/Cocoa.h>
 
+typedef enum tagLMDialStyle {
+  abletonLive,
+  logicPro
+} LMDialStyle;
+
 @interface LMDial : NSView {
-  int     minimum;
-  int     maximum;
-  int     stepping;
-  int     value;
+  LMDialStyle style;
+  int         minimum;
+  int         maximum;
+  int         stepping;
+  int         value;
   
-  NSColor *backgroundColor;
-  NSColor *onColor;
-  NSColor *offColor;
+  NSColor     *backgroundColor;
+  NSColor     *onColor;
+  NSColor     *offColor;
 }
 
+@property LMDialStyle style;
 @property int minimum;
 @property int maximum;
 @property int stepping;
@@ -28,5 +35,8 @@
 @property (assign) NSColor *backgroundColor;
 @property (assign) NSColor *onColor;
 @property (assign) NSColor *offColor;
+
+- (void)drawAbletonLiveStyleDial:(NSRect)rect;
+- (void)drawLogicProStyleDial:(NSRect)rect;
 
 @end
