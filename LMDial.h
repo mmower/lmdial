@@ -22,8 +22,10 @@ typedef enum tagLMDialStyle {
   int         value;
   
   NSColor     *backgroundColor;
-  NSColor     *onColor;
-  NSColor     *offColor;
+  NSColor     *onBorderColor;
+  NSColor     *onFillColor;
+  NSColor     *offBorderColor;
+  NSColor     *offFillColor;
 }
 
 @property LMDialStyle style;
@@ -33,8 +35,10 @@ typedef enum tagLMDialStyle {
 @property int value;
 
 @property (assign) NSColor *backgroundColor;
-@property (assign) NSColor *onColor;
-@property (assign) NSColor *offColor;
+@property (assign) NSColor *onBorderColor;
+@property (assign) NSColor *onFillColor;
+@property (assign) NSColor *offBorderColor;
+@property (assign) NSColor *offFillColor;
 
 - (void)drawAbletonLiveStyleDial:(NSRect)rect;
 - (void)drawLogicProStyleDial:(NSRect)rect;

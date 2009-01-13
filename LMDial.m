@@ -33,9 +33,11 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
       maximum         = 100;
       stepping        = 1;
       
-      backgroundColor = [NSColor grayColor];
-      onColor         = [NSColor blueColor];
-      offColor        = [NSColor blackColor];
+      backgroundColor = [NSColor lightGrayColor];
+      onBorderColor   = [NSColor blueColor];
+      onFillColor     = [NSColor cyanColor];
+      offBorderColor  = [NSColor blackColor];
+      offFillColor    = [NSColor grayColor];
     }
     return self;
 }
@@ -47,58 +49,79 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 @synthesize stepping;
 
 @synthesize backgroundColor;
-@synthesize onColor;
-@synthesize offColor;
+@synthesize onBorderColor;
+@synthesize onFillColor;
+@synthesize offBorderColor;
+@synthesize offFillColor;
 
 - (void)drawRect:(NSRect)rect {
+  NSRect bounds  = [self bounds];
+  
+  [backgroundColor set];
+  NSRectFill( bounds );
+  
   switch( style ) {
     case abletonLive:
-      [self drawAbletonLiveStyleDial:rect];
+      [self drawAbletonLiveStyleDial:bounds];
       break;
       
     case logicPro:
-      [self drawLogicProStyleDial:rect];
+      [self drawLogicProStyleDial:bounds];
       break;
   }
 }
 
-- (void)drawAbletonLiveStyleDial:(NSRect)rect {
-  NSRect bounds  = [self bounds];
+- (void)drawAbletonLiveStyleDial:(NSRect)bounds {
   NSPoint centre = NSRectCentre( bounds );
   CGFloat radius = bounds.size.width / 3;
   float angle    = 240 - ( 300 * (float)value / ( maximum - minimum ) );
-  float theta    = deg2rad( angle );
   
-  [offColor set];
-  [[NSBezierPath bezierPathWithRect:bounds] stroke];
+  NSBezierPath *path = [NSBezierPath bezierPath];
+  [path setLineWidth:2.4];
+  [offBorderColor set];
+  [path appendBezierPathWithArcWithCenter:centre radius:radius startAngle:-60 endAngle:angle clockwise:NO];
+  [path stroke];
   
-  NSBezierPath *segment = [NSBezierPath bezierPath];
-  [segment setLineWidth:2.4];
-  [offColor set];
-  [segment appendBezierPathWithArcWithCenter:centre radius:radius startAngle:-60 endAngle:angle clockwise:NO];
-  [segment stroke];
-  
-  segment = [NSBezierPath bezierPath];
-  [segment setLineWidth:2.4];
-  [onColor set];
-  [segment appendBezierPathWithArcWithCenter:centre radius:radius startAngle:angle endAngle:240 clockwise:NO];
-  [segment moveToPoint:centre];
-  [segment lineToPoint:NSPointOnCircumference( centre, radius, theta )];
-  [segment stroke];
+  path = [NSBezierPath bezierPath];
+  [path setLineWidth:2.4];
+  [onBorderColor set];
+  [path appendBezierPathWithArcWithCenter:centre radius:radius startAngle:angle endAngle:240 clockwise:NO];
+  [path moveToPoint:centre];
+  [path lineToPoint:NSPointOnCircumference( centre, radius, deg2rad( angle ) )];
+  [path stroke];
 }
 
-- (void)drawLogicProStyleDial:(NSRect)rect {
+- (void)drawLogicProStyleDial:(NSRect)bounds {
+  NSPoint centre      = NSRectCentre( bounds );
+  float angle         = 240 - ( 300 * (float)value / ( maximum - minimum ) );
+  CGFloat outerRadius = bounds.size.width / 2.5;
+  CGFloat innerRadius = bounds.size.width / 3;
   
-  // NSRect bounds  = [self bounds];
-  // NSPoint centre = NSRectCentre( bounds );
+  NSBezierPath *path;
   
-  // CGFloat outerRadius = bounds.size.width / 2.5;
-  // CGFloat innerRadius = bounds.size.width / 3;
+  path = [NSBezierPath bezierPath];
+  [path moveToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( 240 ) )];
+  [path lineToPoint:NSPointOnCircumference( centre, outerRadius, deg2rad( 240 ) )];
+  [path appendBezierPathWithArcWithCenter:centre radius:outerRadius startAngle:240 endAngle:angle clockwise:YES];
+  [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( angle ) )];
+  [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:angle endAngle:240 clockwise:NO];
   
+  [offFillColor set];
+  [path fill];
+  [offBorderColor set];
+  [path stroke];
   
+  path = [NSBezierPath bezierPath];
+  [path moveToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( angle ) )];
+  [path lineToPoint:NSPointOnCircumference( centre, outerRadius, deg2rad( angle ) )];
+  [path appendBezierPathWithArcWithCenter:centre radius:outerRadius startAngle:angle endAngle:-60 clockwise:YES];
+  [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( -60 ) )];
+  [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:-60 endAngle:angle clockwise:NO];
   
-  
-  
+  [onFillColor set];
+  [path fill];
+  [onBorderColor set];
+  [path stroke];
 }
 
 - (BOOL)mouseDownCanMoveWindow {
