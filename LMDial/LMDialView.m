@@ -232,13 +232,13 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)mouseDragged:(NSEvent *)event {
-  value += (-[event deltaY] * stepping);
-  if( value > maximum ) {
-    value = maximum;
-  } else if( value < minimum ) {
-    value = minimum;
+  int newValue = [self value] + (-[event deltaY] * stepping);
+  if( newValue > maximum ) {
+    newValue = maximum;
+  } else if( newValue < minimum ) {
+    newValue = minimum;
   }
-  
+  [self setValue:newValue];
   [self setNeedsDisplay:YES];
 }
 
