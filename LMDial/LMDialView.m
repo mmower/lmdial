@@ -130,19 +130,19 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [coder encodeObject:offFillColor forKey:@"lmdial.offFillColor"];
 }
 
-- (Class)valueClassForBinding:(NSString *)binding {
-  if( [binding isEqualToString:@"value"] ||
-      [binding isEqualToString:@"minimum"] ||
-      [binding isEqualToString:@"maximum"] ||
-      [binding isEqualToString:@"stepping"] ) {
-    return [NSNumber class];
-  } else {
-    return [super valueClassForBinding:binding];
-  }
-}
+// - (Class)valueClassForBinding:(NSString *)binding {
+//   if( [binding isEqualToString:@"value"] ||
+//       [binding isEqualToString:@"minimum"] ||
+//       [binding isEqualToString:@"maximum"] ||
+//       [binding isEqualToString:@"stepping"] ) {
+//     return [NSNumber class];
+//   } else {
+//     return [super valueClassForBinding:binding];
+//   }
+// }
 
 @synthesize style;
-@synthesize value;
+@dynamic value;
 @synthesize minimum;
 @synthesize maximum;
 @synthesize stepping;
@@ -152,6 +152,18 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 @synthesize onFillColor;
 @synthesize offBorderColor;
 @synthesize offFillColor;
+
+- (int)value {
+  return value;
+}
+
+- (void)setValue:(int)newValue {
+  [self willChangeValueForKey:@"value"];
+  value = newValue;
+  [self didChangeValueForKey:@"value"];
+  [self setNeedsDisplay:YES];
+}
+
 
 - (void)drawRect:(NSRect)rect {
   NSRect bounds  = [self bounds];
@@ -239,7 +251,6 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     newValue = minimum;
   }
   [self setValue:newValue];
-  [self setNeedsDisplay:YES];
 }
 
 @end
