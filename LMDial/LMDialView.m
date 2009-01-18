@@ -25,6 +25,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 @implementation LMDialView
 
 + (void)initialize {
+  [self exposeBinding:@"enabled"];
   [self exposeBinding:@"value"];
   [self exposeBinding:@"minimum"];
   [self exposeBinding:@"maximum"];
@@ -33,6 +34,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 
 - (id)initWithFrame:(NSRect)frame {
   if( ( self = [super initWithFrame:frame] ) ) {
+    enabled         = YES;
     style           = abletonLive;
     value           = 0;
     minimum         = 0;
@@ -40,7 +42,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     stepping        = 1;
     showValue       = YES;
     
-    backgroundColor = [NSColor lightGrayColor];
+    backgroundColor = [NSColor controlColor];
     onBorderColor   = [NSColor blueColor];
     onFillColor     = [NSColor cyanColor];
     offBorderColor  = [NSColor blackColor];
@@ -57,6 +59,12 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 
 - (id)initWithCoder:(NSCoder *)coder {
   if( ( self = [super initWithCoder:coder] ) ) {
+    if( [coder containsValueForKey:@"lmdial.enabled"] ) {
+      [self setEnabled:[[coder decodeObjectForKey:@"lmdial.enabled"] boolValue]];
+    } else {
+      [self setEnabled:YES];
+    }
+    
     if( [coder containsValueForKey:@"lmdial.style"] ) {
       [self setStyle:[[coder decodeObjectForKey:@"lmdial.style"] intValue]];
     } else {
@@ -90,7 +98,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     if( [coder containsValueForKey:@"lmdial.backgroundColor"] ) {
       [self setBackgroundColor:[coder decodeObjectForKey:@"lmdial.backgroundColor"]];
     } else {
-      [self setBackgroundColor:[NSColor lightGrayColor]];
+      [self setBackgroundColor:[NSColor controlColor]];
     }
     
     if( [coder containsValueForKey:@"lmdial.onBorderColor"] ) {
@@ -142,6 +150,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 - (void)encodeWithCoder:(NSCoder *)coder {
   [super encodeWithCoder:coder];
   
+  [coder encodeObject:[NSNumber numberWithBool:[self enabled]] forKey:@"lmdial.enabled"];
   [coder encodeObject:[NSNumber numberWithInt:[self style]] forKey:@"lmdial.style"];
   [coder encodeObject:[NSNumber numberWithInt:[self value]] forKey:@"lmdial.value"];
   [coder encodeObject:[NSNumber numberWithInt:[self minimum]] forKey:@"lmdial.minimum"];
@@ -169,6 +178,19 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 // }
 
 #pragma mark Properties
+
+@dynamic enabled;
+
+- (BOOL)enabled {
+  return enabled;
+}
+
+- (void)setEnabled:(BOOL)nowEnabled {
+  [self willChangeValueForKey:@"enabled"];
+  enabled = nowEnabled;
+  [self didChangeValueForKey:@"enabled"];
+  [self setNeedsDisplay:YES];
+}
 
 @dynamic style;
 
@@ -361,16 +383,20 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   NSPoint centre = NSRectCentre( bounds );
   CGFloat radius = bounds.size.width / 3;
   float angle    = 240 - ( 300 * ((float)( value - minimum )) / ( maximum - minimum ) );
+  float alpha    = [self enabled] ? 1.0 : 0.5;
+  
+  NSColor *localOffBorderColor = [offBorderColor colorWithAlphaComponent:alpha];
+  NSColor *localOnBorderColor = [onBorderColor colorWithAlphaComponent:alpha];
   
   NSBezierPath *path = [NSBezierPath bezierPath];
   [path setLineWidth:2.4];
-  [offBorderColor set];
+  [localOffBorderColor set];
   [path appendBezierPathWithArcWithCenter:centre radius:radius startAngle:-60 endAngle:angle clockwise:NO];
   [path stroke];
   
   path = [NSBezierPath bezierPath];
   [path setLineWidth:2.4];
-  [onBorderColor set];
+  [localOnBorderColor set];
   [path appendBezierPathWithArcWithCenter:centre radius:radius startAngle:angle endAngle:240 clockwise:NO];
   [path moveToPoint:centre];
   [path lineToPoint:NSPointOnCircumference( centre, radius, deg2rad( angle ) )];
@@ -382,8 +408,14 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   float angle         = 270 - ( 360 * ((float)( value - minimum )) / ( maximum - minimum ) );
   CGFloat outerRadius = bounds.size.width / 2.5;
   CGFloat innerRadius = bounds.size.width / 3.5;
+  float alpha         = [self enabled] ? 1.0 : 0.5;
   
   NSBezierPath *path;
+  
+  NSColor *localOnFillColor = [onFillColor colorWithAlphaComponent:alpha];
+  NSColor *localOnBorderColor = [onBorderColor colorWithAlphaComponent:alpha];
+  NSColor *localOffFillColor = [offFillColor colorWithAlphaComponent:alpha];
+  NSColor *localOffBorderColor = [offBorderColor colorWithAlphaComponent:alpha];
   
   path = [NSBezierPath bezierPath];
   [path moveToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( 270 ) )];
@@ -392,9 +424,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( angle ) )];
   [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:angle endAngle:270 clockwise:NO];
   
-  [onFillColor set];
+  [localOnFillColor set];
   [path fill];
-  [onBorderColor set];
+  [localOnBorderColor set];
   [path stroke];
   
   path = [NSBezierPath bezierPath];
@@ -404,9 +436,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( -90 ) )];
   [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:-90 endAngle:angle clockwise:NO];
   
-  [offFillColor set];
+  [localOffFillColor set];
   [path fill];
-  [offBorderColor set];
+  [localOffBorderColor set];
   [path stroke];
   
   if( showValue ) {
@@ -428,9 +460,11 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 - (void)drawText:(NSString *)text boundedBy:(NSRect)bounds {
   NSFont *textFont = [NSFont labelFontOfSize:[self fontSize]];
   
+  NSColor *localValueColor = [valueColor colorWithAlphaComponent:([self enabled] ? 1.0 : 0.5)];
+  
   NSMutableDictionary *textAttributes = [[NSMutableDictionary alloc] init];
   [textAttributes setObject:textFont forKey:NSFontAttributeName];
-  [textAttributes setObject:valueColor forKey:NSForegroundColorAttributeName];
+  [textAttributes setObject:localValueColor forKey:NSForegroundColorAttributeName];
   
   NSSize textSize = [text sizeWithAttributes:textAttributes];
   NSPoint textOrigin = NSRectCentre( bounds );
@@ -449,14 +483,16 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)mouseDragged:(NSEvent *)event {
-  int newValue = [self value] + (-[event deltaY] * stepping);
-  if( newValue > maximum ) {
-    newValue = maximum;
-  } else if( newValue < minimum ) {
-    newValue = minimum;
+  if( [self enabled] ) {
+    int newValue = [self value] + (-[event deltaY] * stepping);
+    if( newValue > maximum ) {
+      newValue = maximum;
+    } else if( newValue < minimum ) {
+      newValue = minimum;
+    }
+    [self setValue:newValue];
+    [self updateBoundValue];
   }
-  [self setValue:newValue];
-  [self updateBoundValue];
 }
 
 - (void)updateBoundValue {
