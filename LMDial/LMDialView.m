@@ -38,16 +38,22 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     minimum         = 0;
     maximum         = 100;
     stepping        = 1;
+    showValue       = YES;
     
     backgroundColor = [NSColor lightGrayColor];
     onBorderColor   = [NSColor blueColor];
     onFillColor     = [NSColor cyanColor];
     offBorderColor  = [NSColor blackColor];
     offFillColor    = [NSColor grayColor];
+    valueColor      = [NSColor blackColor];
+    
+    fontSize        = 6.0;
   }
   
   return self;
 }
+
+#pragma mark NSCoder implementation
 
 - (id)initWithCoder:(NSCoder *)coder {
   if( ( self = [super initWithCoder:coder] ) ) {
@@ -111,16 +117,22 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
       [self setOffFillColor:[NSColor grayColor]];
     }
     
+    if( [coder containsValueForKey:@"lmdial.showValue"] ) {
+      [self setShowValue:[[coder decodeObjectForKey:@"lmdial.showValue"] intValue]];
+    } else {
+      [self setShowValue:YES];
+    }
+    
     if( [coder containsValueForKey:@"lmdial.valueColor"] ) {
       [self setValueColor:[coder decodeObjectForKey:@"lmdial.valueColor"]];
     } else {
       [self setValueColor:[NSColor blackColor]];
     }
     
-    if( [coder containsValueForKey:@"lmdial.valueFont"] ) {
-      [self setValueFont:[coder decodeObjectForKey:@"lmdial.valueFont"]];
+    if( [coder containsValueForKey:@"lmdial.fontSize"] ) {
+      [self setFontSize:[[coder decodeObjectForKey:@"lmdial.fontSize"] floatValue]];
     } else {
-      [self setValueFont:[NSFont labelFontOfSize:[NSFont smallSystemFontSize]]];
+      [self setFontSize:6.0];
     }
   }
   
@@ -140,6 +152,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [coder encodeObject:onFillColor forKey:@"lmdial.onFillColor"];
   [coder encodeObject:offBorderColor forKey:@"lmdial.offBorderColor"];
   [coder encodeObject:offFillColor forKey:@"lmdial.offFillColor"];
+  [coder encodeObject:valueColor forKey:@"lmdial.valueColor"];
+  [coder encodeObject:[NSNumber numberWithFloat:[self fontSize]] forKey:@"lmdial.fontSize"];
+  [coder encodeObject:[NSNumber numberWithInt:[self showValue]] forKey:@"lmdial.showValue"];
 }
 
 // - (Class)valueClassForBinding:(NSString *)binding {
@@ -152,6 +167,8 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 //     return [super valueClassForBinding:binding];
 //   }
 // }
+
+#pragma mark Properties
 
 @dynamic style;
 
@@ -308,19 +325,20 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [self setNeedsDisplay:YES];
 }
 
-@dynamic valueFont;
+@dynamic fontSize;
 
-- (NSFont *)valueFont {
-  return valueFont;
+- (CGFloat)fontSize {
+  return fontSize;
 }
 
-- (void)setValueFont:(NSFont *)newValueFont {
-  [self willChangeValueForKey:@"backgroundColor"];
-  valueFont = newValueFont;
-  [self didChangeValueForKey:@"backgroundColor"];
+- (void)setFontSize:(CGFloat)newFontSize {
+  [self willChangeValueForKey:@"fontSize"];
+  fontSize = newFontSize;
+  [self didChangeValueForKey:@"fontSize"];
   [self setNeedsDisplay:YES];
 }
 
+#pragma mark Drawing Code
 
 - (void)drawRect:(NSRect)rect {
   NSRect bounds  = [self bounds];
@@ -342,7 +360,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 - (void)drawAbletonLiveStyleDial:(NSRect)bounds {
   NSPoint centre = NSRectCentre( bounds );
   CGFloat radius = bounds.size.width / 3;
-  float angle    = 240 - ( 300 * (float)value / ( maximum - minimum ) );
+  float angle    = 240 - ( 300 * ((float)( value - minimum )) / ( maximum - minimum ) );
   
   NSBezierPath *path = [NSBezierPath bezierPath];
   [path setLineWidth:2.4];
@@ -361,7 +379,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 
 - (void)drawLogicProStyleDial:(NSRect)bounds {
   NSPoint centre      = NSRectCentre( bounds );
-  float angle         = 270 - ( 360 * (float)value / ( maximum - minimum ) );
+  float angle         = 270 - ( 360 * ((float)( value - minimum )) / ( maximum - minimum ) );
   CGFloat outerRadius = bounds.size.width / 2.5;
   CGFloat innerRadius = bounds.size.width / 3.5;
   
@@ -392,6 +410,38 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [path fill];
   [offBorderColor set];
   [path stroke];
+  
+  if( showValue ) {
+    [self drawValue:bounds];
+  }
+}
+
+- (void)drawValue:(NSRect)bounds {
+  NSLog( @"display value-3" );
+  
+  NSString *valueText;
+  if( value > 0 ) {
+    valueText = [NSString stringWithFormat:@"+%d",value];
+  } else {
+    valueText = [[NSNumber numberWithInt:value] stringValue];
+  }
+  
+  [self drawText:valueText boundedBy:bounds];
+}
+
+- (void)drawText:(NSString *)text boundedBy:(NSRect)bounds {
+  NSFont *textFont = [NSFont labelFontOfSize:[self fontSize]];
+  
+  NSMutableDictionary *textAttributes = [[NSMutableDictionary alloc] init];
+  [textAttributes setObject:textFont forKey:NSFontAttributeName];
+  [textAttributes setObject:valueColor forKey:NSForegroundColorAttributeName];
+  
+  NSSize textSize = [text sizeWithAttributes:textAttributes];
+  NSPoint textOrigin = NSRectCentre( bounds );
+  textOrigin.x -= textSize.width / 2;
+  textOrigin.y -= textSize.height / 2;
+  
+  [text drawAtPoint:textOrigin withAttributes:textAttributes];
 }
 
 - (BOOL)mouseDownCanMoveWindow {

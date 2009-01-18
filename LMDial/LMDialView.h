@@ -19,12 +19,17 @@ typedef enum tagLMDialStyle {
     int         maximum;
     int         stepping;
     int         value;
+    
+    BOOL        showValue;
 
     NSColor     *backgroundColor;
     NSColor     *onBorderColor;
     NSColor     *onFillColor;
     NSColor     *offBorderColor;
     NSColor     *offFillColor;
+    NSColor     *valueColor;
+    
+    CGFloat     fontSize;
 }
 
 @property LMDialStyle style;
@@ -33,14 +38,20 @@ typedef enum tagLMDialStyle {
 @property int stepping;
 @property int value;
 
+@property BOOL showValue;
+@property CGFloat fontSize;
+
 @property (assign) NSColor *backgroundColor;
 @property (assign) NSColor *onBorderColor;
 @property (assign) NSColor *onFillColor;
 @property (assign) NSColor *offBorderColor;
 @property (assign) NSColor *offFillColor;
+@property (assign) NSColor *valueColor;
 
-- (void)drawAbletonLiveStyleDial:(NSRect)rect;
-- (void)drawLogicProStyleDial:(NSRect)rect;
+- (void)drawAbletonLiveStyleDial:(NSRect)bounds;
+- (void)drawLogicProStyleDial:(NSRect)bounds;
+- (void)drawValue:(NSRect)bounds;
+- (void)drawText:(NSString *)text boundedBy:(NSRect)bounds;
 
 - (void)updateBoundValue;
 
