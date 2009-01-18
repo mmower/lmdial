@@ -8,8 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="372"/>
 			<integer value="57"/>
+			<integer value="372"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1123,9 +1123,9 @@
 							<string key="NSFrame">{{146, 243}, {40, 40}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<integer value="0" key="lmdial.style" id="8"/>
-							<reference key="lmdial.value" ref="8"/>
-							<reference key="lmdial.minimum" ref="8"/>
-							<integer value="100" key="lmdial.maximum"/>
+							<integer value="10" key="lmdial.value"/>
+							<integer value="-50" key="lmdial.minimum"/>
+							<integer value="50" key="lmdial.maximum"/>
 							<integer value="1" key="lmdial.stepping" id="9"/>
 							<object class="NSColor" key="lmdial.backgroundColor" id="612502015">
 								<int key="NSColorSpace">3</int>
@@ -1153,7 +1153,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{300, 243}, {40, 40}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="lmdial.style" ref="8"/>
+							<reference key="lmdial.style" ref="9"/>
 							<reference key="lmdial.value" ref="8"/>
 							<reference key="lmdial.minimum" ref="8"/>
 							<integer value="100" key="lmdial.maximum"/>
