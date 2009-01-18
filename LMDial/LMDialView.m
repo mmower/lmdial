@@ -11,7 +11,7 @@
 static float PI = 3.14159265358979323846264338327950288419716939937510;
 
 NSPoint NSRectCentre( NSRect rect ) {
-  return NSMakePoint( rect.origin.x + ( rect.size.width / 2 ), rect.origin.y + ( rect.size.height/2 ) );
+  return NSMakePoint( rect.origin.x + ( rect.size.width / 2 ), rect.origin.y + ( rect.size.height / 2 ) );
 }
 
 float deg2rad( float degrees ) {
@@ -82,33 +82,45 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     }
     
     if( [coder containsValueForKey:@"lmdial.backgroundColor"] ) {
-      backgroundColor = [coder decodeObjectForKey:@"lmdial.backgroundColor"];
+      [self setBackgroundColor:[coder decodeObjectForKey:@"lmdial.backgroundColor"]];
     } else {
-      backgroundColor = [NSColor lightGrayColor];
+      [self setBackgroundColor:[NSColor lightGrayColor]];
     }
     
     if( [coder containsValueForKey:@"lmdial.onBorderColor"] ) {
-      onBorderColor = [coder decodeObjectForKey:@"lmdial.onBorderColor"];
+      [self setOnBorderColor:[coder decodeObjectForKey:@"lmdial.onBorderColor"]];
     } else {
-      onBorderColor = [NSColor blueColor];
+      [self setOnBorderColor:[NSColor blueColor]];
     }
     
     if( [coder containsValueForKey:@"lmdial.onFillColor"] ) {
-      onFillColor = [coder decodeObjectForKey:@"lmdial.onFillColor"];
+      [self setOnFillColor:[coder decodeObjectForKey:@"lmdial.onFillColor"]];
     } else {
-      onFillColor = [NSColor cyanColor];
+      [self setOnFillColor:[NSColor cyanColor]];
     }
     
     if( [coder containsValueForKey:@"lmdial.offBorderColor"] ) {
-      offBorderColor = [coder decodeObjectForKey:@"lmdial.offBorderColor"];
+      [self setOffBorderColor:[coder decodeObjectForKey:@"lmdial.offBorderColor"]];
     } else {
-      offBorderColor = [NSColor blackColor];
+      [self setOffBorderColor:[NSColor blackColor]];
     }
     
     if( [coder containsValueForKey:@"lmdial.offFillColor"] ) {
-      offFillColor = [coder decodeObjectForKey:@"lmdial.offFillColor"];
+      [self setOffFillColor:[coder decodeObjectForKey:@"lmdial.offFillColor"]];
     } else {
-      offFillColor = [NSColor grayColor];
+      [self setOffFillColor:[NSColor grayColor]];
+    }
+    
+    if( [coder containsValueForKey:@"lmdial.valueColor"] ) {
+      [self setValueColor:[coder decodeObjectForKey:@"lmdial.valueColor"]];
+    } else {
+      [self setValueColor:[NSColor blackColor]];
+    }
+    
+    if( [coder containsValueForKey:@"lmdial.valueFont"] ) {
+      [self setValueFont:[coder decodeObjectForKey:@"lmdial.valueFont"]];
+    } else {
+      [self setValueFont:[NSFont labelFontOfSize:[NSFont smallSystemFontSize]]];
     }
   }
   
@@ -205,11 +217,110 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 
 @synthesize stepping;
 
-@synthesize backgroundColor;
-@synthesize onBorderColor;
-@synthesize onFillColor;
-@synthesize offBorderColor;
-@synthesize offFillColor;
+@dynamic showValue;
+
+- (BOOL)showValue {
+  return showValue;
+}
+
+- (void)setShowValue:(BOOL)nowShowValue {
+  [self willChangeValueForKey:@"showValue"];
+  showValue = nowShowValue;
+  [self didChangeValueForKey:@"showValue"];
+  [self setNeedsDisplay:YES];
+}
+
+@dynamic backgroundColor;
+
+- (NSColor *)backgroundColor {
+  return backgroundColor;
+}
+
+- (void)setBackgroundColor:(NSColor *)newBackgroundColor {
+  [self willChangeValueForKey:@"backgroundColor"];
+  backgroundColor = newBackgroundColor;
+  [self didChangeValueForKey:@"backgroundColor"];
+  [self setNeedsDisplay:YES];
+}
+
+@dynamic onBorderColor;
+
+- (NSColor *)onBorderColor {
+  return onBorderColor;
+}
+
+- (void)setOnBorderColor:(NSColor *)newOnBorderColor {
+  [self willChangeValueForKey:@"onBorderColor"];
+  onBorderColor = newOnBorderColor;
+  [self didChangeValueForKey:@"onBorderColor"];
+  [self setNeedsDisplay:YES];
+}
+
+@dynamic onFillColor;
+
+- (NSColor *)onFillColor {
+  return onFillColor;
+}
+
+- (void)setOnFillColor:(NSColor *)newOnFillColor {
+  [self willChangeValueForKey:@"onFillColor"];
+  onFillColor = newOnFillColor;
+  [self didChangeValueForKey:@"onFillColor"];
+  [self setNeedsDisplay:YES];
+}
+
+@dynamic offBorderColor;
+
+- (NSColor *)offBorderColor {
+  return offBorderColor;
+}
+
+- (void)setOffBorderColor:(NSColor *)newOffBorderColor {
+  [self willChangeValueForKey:@"offBorderColor"];
+  offBorderColor = newOffBorderColor;
+  [self didChangeValueForKey:@"offBorderColor"];
+  [self setNeedsDisplay:YES];
+}
+
+@dynamic offFillColor;
+
+- (NSColor *)offFillColor {
+  return offFillColor;
+}
+
+- (void)setOffFillColor:(NSColor *)newOffFillColor {
+  [self willChangeValueForKey:@"offFillColor"];
+  offFillColor = newOffFillColor;
+  [self didChangeValueForKey:@"offFillColor"];
+  [self setNeedsDisplay:YES];
+}
+
+@dynamic valueColor;
+
+- (NSColor *)valueColor {
+  return valueColor;
+}
+
+- (void)setValueColor:(NSColor *)newValueColor {
+  [self willChangeValueForKey:@"valueColor"];
+  valueColor = newValueColor;
+  [self didChangeValueForKey:@"valueColor"];
+  [self setNeedsDisplay:YES];
+}
+
+@dynamic valueFont;
+
+- (NSFont *)valueFont {
+  return valueFont;
+}
+
+- (void)setValueFont:(NSFont *)newValueFont {
+  [self willChangeValueForKey:@"backgroundColor"];
+  valueFont = newValueFont;
+  [self didChangeValueForKey:@"backgroundColor"];
+  [self setNeedsDisplay:YES];
+}
+
 
 - (void)drawRect:(NSRect)rect {
   NSRect bounds  = [self bounds];
