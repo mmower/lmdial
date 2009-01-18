@@ -141,17 +141,20 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 //   }
 // }
 
-@synthesize style;
-@dynamic value;
-@synthesize minimum;
-@synthesize maximum;
-@synthesize stepping;
+@dynamic style;
 
-@synthesize backgroundColor;
-@synthesize onBorderColor;
-@synthesize onFillColor;
-@synthesize offBorderColor;
-@synthesize offFillColor;
+- (LMDialStyle)style {
+  return style;
+}
+
+- (void)setStyle:(LMDialStyle)newStyle {
+  [self willChangeValueForKey:@"style"];
+  style = newStyle;
+  [self didChangeValueForKey:@"style"];
+  [self setNeedsDisplay:YES];
+}
+
+@dynamic value;
 
 - (int)value {
   return value;
@@ -163,6 +166,18 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [self didChangeValueForKey:@"value"];
   [self setNeedsDisplay:YES];
 }
+
+@synthesize minimum;
+@synthesize maximum;
+@synthesize stepping;
+
+@synthesize backgroundColor;
+@synthesize onBorderColor;
+@synthesize onFillColor;
+@synthesize offBorderColor;
+@synthesize offFillColor;
+
+
 
 
 - (void)drawRect:(NSRect)rect {
