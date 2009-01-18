@@ -1123,9 +1123,9 @@
 							<string key="NSFrame">{{146, 243}, {40, 40}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<integer value="0" key="lmdial.style" id="8"/>
-							<integer value="10" key="lmdial.value"/>
-							<integer value="-50" key="lmdial.minimum"/>
-							<integer value="50" key="lmdial.maximum"/>
+							<integer value="50" key="lmdial.value"/>
+							<reference key="lmdial.minimum" ref="8"/>
+							<integer value="100" key="lmdial.maximum"/>
 							<integer value="1" key="lmdial.stepping" id="9"/>
 							<object class="NSColor" key="lmdial.backgroundColor" id="612502015">
 								<int key="NSColorSpace">3</int>
@@ -1147,6 +1147,9 @@
 								<int key="NSColorSpace">3</int>
 								<bytes key="NSWhite">MC41AA</bytes>
 							</object>
+							<reference key="lmdial.valueColor" ref="342231181"/>
+							<real value="6.000000e+00" key="lmdial.fontSize"/>
+							<reference key="lmdial.showValue" ref="9"/>
 						</object>
 						<object class="LMDialView" id="185787401">
 							<reference key="NSNextResponder" ref="439893737"/>
@@ -1154,15 +1157,18 @@
 							<string key="NSFrame">{{300, 243}, {40, 40}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="lmdial.style" ref="9"/>
-							<reference key="lmdial.value" ref="8"/>
+							<integer value="50" key="lmdial.value"/>
 							<reference key="lmdial.minimum" ref="8"/>
-							<integer value="100" key="lmdial.maximum"/>
+							<integer value="127" key="lmdial.maximum"/>
 							<reference key="lmdial.stepping" ref="9"/>
 							<reference key="lmdial.backgroundColor" ref="612502015"/>
 							<reference key="lmdial.onBorderColor" ref="161440823"/>
 							<reference key="lmdial.onFillColor" ref="325126768"/>
 							<reference key="lmdial.offBorderColor" ref="342231181"/>
 							<reference key="lmdial.offFillColor" ref="640739397"/>
+							<reference key="lmdial.valueColor" ref="342231181"/>
+							<real value="8.000000e+00" key="lmdial.fontSize"/>
+							<reference key="lmdial.showValue" ref="9"/>
 						</object>
 						<object class="NSTextField" id="151735914">
 							<reference key="NSNextResponder" ref="439893737"/>
@@ -3361,9 +3367,9 @@
 					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
-					<string>{{659, 329}, {480, 360}}</string>
+					<string>{{579, 329}, {480, 360}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{659, 329}, {480, 360}}</string>
+					<string>{{579, 329}, {480, 360}}</string>
 					<reference ref="9"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<string>{3.40282e+38, 3.40282e+38}</string>
