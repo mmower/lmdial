@@ -42,7 +42,6 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     stepping        = 1;
     showValue       = YES;
     
-    backgroundColor = [NSColor controlColor];
     onBorderColor   = [NSColor blueColor];
     onFillColor     = [NSColor cyanColor];
     offBorderColor  = [NSColor blackColor];
@@ -93,12 +92,6 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
       [self setStepping:[[coder decodeObjectForKey:@"lmdial.stepping"] intValue]];
     } else {
       [self setStepping:1];
-    }
-    
-    if( [coder containsValueForKey:@"lmdial.backgroundColor"] ) {
-      [self setBackgroundColor:[coder decodeObjectForKey:@"lmdial.backgroundColor"]];
-    } else {
-      [self setBackgroundColor:[NSColor controlColor]];
     }
     
     if( [coder containsValueForKey:@"lmdial.onBorderColor"] ) {
@@ -156,7 +149,6 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [coder encodeObject:[NSNumber numberWithInt:[self minimum]] forKey:@"lmdial.minimum"];
   [coder encodeObject:[NSNumber numberWithInt:[self maximum]] forKey:@"lmdial.maximum"];
   [coder encodeObject:[NSNumber numberWithInt:[self stepping]] forKey:@"lmdial.stepping"];
-  [coder encodeObject:backgroundColor forKey:@"lmdial.backgroundColor"];
   [coder encodeObject:onBorderColor forKey:@"lmdial.onBorderColor"];
   [coder encodeObject:onFillColor forKey:@"lmdial.onFillColor"];
   [coder encodeObject:offBorderColor forKey:@"lmdial.offBorderColor"];
@@ -165,17 +157,6 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [coder encodeObject:[NSNumber numberWithFloat:[self fontSize]] forKey:@"lmdial.fontSize"];
   [coder encodeObject:[NSNumber numberWithInt:[self showValue]] forKey:@"lmdial.showValue"];
 }
-
-// - (Class)valueClassForBinding:(NSString *)binding {
-//   if( [binding isEqualToString:@"value"] ||
-//       [binding isEqualToString:@"minimum"] ||
-//       [binding isEqualToString:@"maximum"] ||
-//       [binding isEqualToString:@"stepping"] ) {
-//     return [NSNumber class];
-//   } else {
-//     return [super valueClassForBinding:binding];
-//   }
-// }
 
 #pragma mark Properties
 
@@ -269,19 +250,6 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [self setNeedsDisplay:YES];
 }
 
-@dynamic backgroundColor;
-
-- (NSColor *)backgroundColor {
-  return backgroundColor;
-}
-
-- (void)setBackgroundColor:(NSColor *)newBackgroundColor {
-  [self willChangeValueForKey:@"backgroundColor"];
-  backgroundColor = newBackgroundColor;
-  [self didChangeValueForKey:@"backgroundColor"];
-  [self setNeedsDisplay:YES];
-}
-
 @dynamic onBorderColor;
 
 - (NSColor *)onBorderColor {
@@ -364,9 +332,6 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 
 - (void)drawRect:(NSRect)rect {
   NSRect bounds  = [self bounds];
-  
-  [backgroundColor set];
-  NSRectFill( bounds );
   
   switch( style ) {
     case abletonLive:
