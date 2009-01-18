@@ -251,6 +251,14 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     newValue = minimum;
   }
   [self setValue:newValue];
+  [self updateBoundValue];
+}
+
+- (void)updateBoundValue {
+  NSDictionary *binding = [self infoForBinding:@"value"];
+  id controller = [binding objectForKey:NSObservedObjectKey];
+  NSString *keyPath = [binding objectForKey:NSObservedKeyPathKey];
+  [controller setValue:[NSNumber numberWithInt:value] forKeyPath:keyPath];
 }
 
 @end

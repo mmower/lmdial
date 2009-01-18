@@ -42,4 +42,6 @@ typedef enum tagLMDialStyle {
 - (void)drawAbletonLiveStyleDial:(NSRect)rect;
 - (void)drawLogicProStyleDial:(NSRect)rect;
 
+- (void)updateBoundValue;
+
 @end
