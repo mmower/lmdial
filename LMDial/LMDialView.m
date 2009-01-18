@@ -383,8 +383,6 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   CGFloat outerRadius = bounds.size.width / 2.5;
   CGFloat innerRadius = bounds.size.width / 3.5;
   
-  NSLog( @"value = %d / angle = %f", value, angle );
-  
   NSBezierPath *path;
   
   path = [NSBezierPath bezierPath];
@@ -417,8 +415,6 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)drawValue:(NSRect)bounds {
-  NSLog( @"display value-3" );
-  
   NSString *valueText;
   if( value > 0 ) {
     valueText = [NSString stringWithFormat:@"+%d",value];
