@@ -13,23 +13,27 @@ typedef enum tagLMDialStyle {
   logicPro
 } LMDialStyle;
 
-@interface LMDialView : NSView {
-    BOOL        enabled;
-    LMDialStyle style;
-    int         minimum;
-    int         maximum;
-    int         stepping;
-    int         value;
-    
-    BOOL        showValue;
+@class LMDialEditWindow;
 
-    NSColor     *onBorderColor;
-    NSColor     *onFillColor;
-    NSColor     *offBorderColor;
-    NSColor     *offFillColor;
-    NSColor     *valueColor;
+@interface LMDialView : NSView {
+    BOOL              enabled;
+    LMDialStyle       style;
+    int               minimum;
+    int               maximum;
+    int               stepping;
+    int               value;
     
-    CGFloat     fontSize;
+    BOOL              showValue;
+
+    NSColor           *onBorderColor;
+    NSColor           *onFillColor;
+    NSColor           *offBorderColor;
+    NSColor           *offFillColor;
+    NSColor           *valueColor;
+    
+    CGFloat           fontSize;
+    
+    LMDialEditWindow  *editWindow;
 }
 
 @property BOOL enabled;

@@ -8,6 +8,8 @@
 
 #import "LMDialView.h"
 
+#import "LMDialEditWindow.h"
+
 static float PI = 3.14159265358979323846264338327950288419716939937510;
 
 NSPoint NSRectCentre( NSRect rect ) {
@@ -21,6 +23,12 @@ float deg2rad( float degrees ) {
 NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) {
   return NSMakePoint( centre.x + ( radius * cos( theta ) ), centre.y + ( radius * sin( theta ) ) );
 }
+
+@interface LMDialView ()
+
+- (void)editValue;
+
+@end
 
 @implementation LMDialView
 
@@ -447,6 +455,12 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   return YES;
 }
 
+- (void)mouseDown:(NSEvent *)event {
+  if( [event clickCount] == 2 ) {
+    [self editValue];
+  }
+}
+
 - (void)mouseDragged:(NSEvent *)event {
   if( [self enabled] ) {
     int multiplier = 1;
@@ -479,6 +493,11 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   id controller = [binding objectForKey:NSObservedObjectKey];
   NSString *keyPath = [binding objectForKey:NSObservedKeyPathKey];
   [controller setValue:[NSNumber numberWithInt:value] forKeyPath:keyPath];
+}
+
+- (void)editValue {
+  editWindow = [[[LMDialEditWindow alloc] initForDialView:self inWindow:[self window]] retain];
+  [[self window] addChildWindow:editWindow ordered:NSWindowAbove];
 }
 
 @end
