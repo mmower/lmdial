@@ -449,7 +449,21 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 
 - (void)mouseDragged:(NSEvent *)event {
   if( [self enabled] ) {
-    int newValue = [self value] + (-[event deltaY] * stepping);
+    int multiplier = 1;
+    
+    if( [event modifierFlags] & NSControlKeyMask ) {
+      multiplier *= 2;
+    }
+    
+    if( [event modifierFlags] & NSAlternateKeyMask ) {
+      multiplier *= 5;
+    }
+    
+    if( [event modifierFlags] & NSCommandKeyMask ) {
+      multiplier *= 10;
+    }
+    
+    int newValue = [self value] + (-[event deltaY] * stepping * multiplier);
     if( newValue > maximum ) {
       newValue = maximum;
     } else if( newValue < minimum ) {
