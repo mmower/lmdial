@@ -33,7 +33,7 @@ typedef enum tagLMDialStyle {
     
     CGFloat           fontSize;
     
-    LMDialEditWindow  *editWindow;
+    NSTextField       *valueEditor;
 }
 
 @property BOOL enabled;

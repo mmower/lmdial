@@ -201,6 +201,11 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)setValue:(int)newValue {
+  if( newValue > maximum ) {
+    newValue = maximum;
+  } else if( newValue < minimum ) {
+    newValue = minimum;
+  }
   [self willChangeValueForKey:@"value"];
   value = newValue;
   [self didChangeValueForKey:@"value"];
@@ -456,7 +461,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)mouseDown:(NSEvent *)event {
-  if( [event clickCount] == 2 ) {
+  if( [event clickCount] == 2 && [self enabled] ) {
     [self editValue];
   }
 }
@@ -496,8 +501,20 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)editValue {
-  editWindow = [[[LMDialEditWindow alloc] initForDialView:self inWindow:[self window]] retain];
-  [[self window] addChildWindow:editWindow ordered:NSWindowAbove];
+  valueEditor = [[NSTextField alloc] initWithFrame:NSZeroRect];
+  NSRect editorFrame = NSMakeRect( [self frame].origin.x, [self frame].origin.y + [self frame].size.height / 4, [self frame].size.width, [[valueEditor font] boundingRectForFont].size.height );
+  [valueEditor setFrame:editorFrame];
+  
+  [valueEditor setDelegate:self];
+  [valueEditor bind:@"value" toObject:self withKeyPath:@"value" options:nil];
+  [[[self window] contentView] addSubview:valueEditor];
+  [[self window] makeFirstResponder:valueEditor];
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)notification {
+  [valueEditor removeFromSuperview];
+  [self setEnabled:YES];
+  [self updateBoundValue];
 }
 
 @end
