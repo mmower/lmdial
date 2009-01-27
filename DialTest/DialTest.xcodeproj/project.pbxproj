@@ -12,9 +12,26 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		C932E67A0F215C010081AD74 /* DialController.m in Sources */ = {isa = PBXBuildFile; fileRef = C932E6790F215C010081AD74 /* DialController.m */; };
-		C932E6A90F2160E30081AD74 /* LMDial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C932E6A80F2160E30081AD74 /* LMDial.framework */; };
-		C932E6B00F2161F70081AD74 /* LMDial.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = C932E6A80F2160E30081AD74 /* LMDial.framework */; };
+		C9BF35F60F2FD2BB006E306B /* LMDial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BF35F50F2FD2AA006E306B /* LMDial.framework */; };
+		C9BF35F70F2FD2C1006E306B /* LMDial.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = C9BF35F50F2FD2AA006E306B /* LMDial.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C9BF35F20F2FD2AA006E306B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9BF35EC0F2FD2AA006E306B /* LMDial.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D1AC9740486D14A00FE50C9 /* LMDial.ibplugin */;
+			remoteInfo = LMDial;
+		};
+		C9BF35F40F2FD2AA006E306B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9BF35EC0F2FD2AA006E306B /* LMDial.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53DF68FD067E5B5A0090B5B0 /* LMDial.framework */;
+			remoteInfo = LMDialFramework;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		C9DCFEF10F1D61870011876A /* Copy Frameworks */ = {
@@ -23,7 +40,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C932E6B00F2161F70081AD74 /* LMDial.framework in Copy Frameworks */,
+				C9BF35F70F2FD2C1006E306B /* LMDial.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,7 +60,7 @@
 		8D1107320486CEB800E47090 /* DialTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DialTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C932E6780F215C010081AD74 /* DialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialController.h; sourceTree = "<group>"; };
 		C932E6790F215C010081AD74 /* DialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialController.m; sourceTree = "<group>"; };
-		C932E6A80F2160E30081AD74 /* LMDial.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LMDial.framework; path = ../LMDial/build/Debug/LMDial.framework; sourceTree = SOURCE_ROOT; };
+		C9BF35EC0F2FD2AA006E306B /* LMDial.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LMDial.xcodeproj; path = ../LMDial/LMDial.xcodeproj; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +69,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				C932E6A90F2160E30081AD74 /* LMDial.framework in Frameworks */,
+				C9BF35F60F2FD2BB006E306B /* LMDial.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,7 +88,6 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C932E6A80F2160E30081AD74 /* LMDial.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -98,6 +114,7 @@
 		29B97314FDCFA39411CA2CEA /* DialTest */ = {
 			isa = PBXGroup;
 			children = (
+				C9BF35EC0F2FD2AA006E306B /* LMDial.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -135,6 +152,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C9BF35ED0F2FD2AA006E306B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9BF35F30F2FD2AA006E306B /* LMDial.ibplugin */,
+				C9BF35F50F2FD2AA006E306B /* LMDial.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -167,12 +193,35 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* DialTest */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C9BF35ED0F2FD2AA006E306B /* Products */;
+					ProjectRef = C9BF35EC0F2FD2AA006E306B /* LMDial.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* DialTest */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C9BF35F30F2FD2AA006E306B /* LMDial.ibplugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = LMDial.ibplugin;
+			remoteRef = C9BF35F20F2FD2AA006E306B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9BF35F50F2FD2AA006E306B /* LMDial.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = LMDial.framework;
+			remoteRef = C9BF35F40F2FD2AA006E306B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
