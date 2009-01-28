@@ -8,8 +8,6 @@
 
 #import "LMDialView.h"
 
-#import "LMDialEditWindow.h"
-
 static float PI = 3.14159265358979323846264338327950288419716939937510;
 
 NSPoint NSRectCentre( NSRect rect ) {
@@ -27,6 +25,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 @interface LMDialView ()
 
 - (void)editValue;
+- (void)updateValueText;
 
 @end
 
@@ -38,6 +37,14 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [self exposeBinding:@"minimum"];
   [self exposeBinding:@"maximum"];
   [self exposeBinding:@"stepping"];
+  [self exposeBinding:@"divisor"];
+  [self exposeBinding:@"formatter"];
+}
+
+- (void)dealloc {
+  [formatter release];
+  [valueText release];
+  [super dealloc];
 }
 
 - (id)initWithFrame:(NSRect)frame {
@@ -55,6 +62,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     offBorderColor  = [NSColor blackColor];
     offFillColor    = [NSColor grayColor];
     valueColor      = [NSColor blackColor];
+    
+    divisor         = 1;
+    formatter       = [@"+%d" retain];
     
     fontSize        = 6.0;
   }
@@ -76,12 +86,6 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
       [self setStyle:[[coder decodeObjectForKey:@"lmdial.style"] intValue]];
     } else {
       [self setStyle:abletonLive];
-    }
-    
-    if( [coder containsValueForKey:@"lmdial.value"] ) {
-      [self setValue:[[coder decodeObjectForKey:@"lmdial.value"] intValue]];
-    } else {
-      [self setValue:0];
     }
     
     if( [coder containsValueForKey:@"lmdial.minimum"] ) {
@@ -143,6 +147,25 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     } else {
       [self setFontSize:6.0];
     }
+    
+    if( [coder containsValueForKey:@"lmdial.formatter"] ) {
+      [self setFormatter:[coder decodeObjectForKey:@"lmdial.formatter"]];
+    } else {
+      [self setFormatter:@"+%d"];
+    }
+    
+    if( [coder containsValueForKey:@"lmdial.divisor"] ) {
+      [self setValue:[[coder decodeObjectForKey:@"lmdial.divisor"] intValue]];
+    } else {
+      [self setDivisor:1];
+    }
+    
+    // Initialize the value last and, especially, after the formatter (since, if it's null, we'll get an exception)
+    if( [coder containsValueForKey:@"lmdial.value"] ) {
+      [self setValue:[[coder decodeObjectForKey:@"lmdial.value"] intValue]];
+    } else {
+      [self setValue:0];
+    }
   }
   
   return self;
@@ -164,6 +187,8 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [coder encodeObject:valueColor forKey:@"lmdial.valueColor"];
   [coder encodeObject:[NSNumber numberWithFloat:[self fontSize]] forKey:@"lmdial.fontSize"];
   [coder encodeObject:[NSNumber numberWithInt:[self showValue]] forKey:@"lmdial.showValue"];
+  [coder encodeObject:formatter forKey:@"lmdial.formatter"];
+  [coder encodeObject:[NSNumber numberWithInt:[self divisor]] forKey:@"lmdial.divisor"];
 }
 
 #pragma mark Properties
@@ -208,6 +233,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   }
   [self willChangeValueForKey:@"value"];
   value = newValue;
+  [self updateValueText];
   [self didChangeValueForKey:@"value"];
   [self setNeedsDisplay:YES];
 }
@@ -225,9 +251,8 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   
   if( value < minimum ) {
     [self setValue:minimum];
-  } else {
-    [self setNeedsDisplay:YES];
   }
+  [self setNeedsDisplay:YES];
 }
 
 @dynamic maximum;
@@ -243,9 +268,33 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   
   if( value > maximum ) {
     [self setValue:maximum];
-  } else {
-    [self setNeedsDisplay:YES];
   }
+  [self setNeedsDisplay:YES];
+}
+
+@dynamic divisor;
+
+- (int)divisor {
+  return divisor;
+}
+
+- (void)setDivisor:(int)newDivisor {
+  divisor = newDivisor;
+  [self updateValueText];
+  [self setNeedsDisplay:YES];
+}
+
+@dynamic formatter;
+
+- (NSString *)formatter {
+  return formatter;
+}
+
+- (void)setFormatter:(NSString *)newFormatter {
+  [formatter release];
+  formatter = [newFormatter copy];
+  [self updateValueText];
+  [self setNeedsDisplay:YES];
 }
 
 @synthesize stepping;
@@ -425,13 +474,6 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)drawValue:(NSRect)bounds {
-  NSString *valueText;
-  if( value > 0 ) {
-    valueText = [NSString stringWithFormat:@"+%d",value];
-  } else {
-    valueText = [[NSNumber numberWithInt:value] stringValue];
-  }
-  
   [self drawText:valueText boundedBy:bounds];
 }
 
@@ -515,6 +557,16 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [valueEditor removeFromSuperview];
   [self setEnabled:YES];
   [self updateBoundValue];
+}
+
+- (void)updateValueText {
+  [valueText release];
+  
+  if( divisor > 1 ) {
+    valueText = [[NSString stringWithFormat:formatter,((float)value)/divisor] retain];
+  } else {
+    valueText = [[NSString stringWithFormat:formatter,value] retain];
+  }
 }
 
 @end

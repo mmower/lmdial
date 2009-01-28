@@ -31,6 +31,10 @@ typedef enum tagLMDialStyle {
     NSColor           *offFillColor;
     NSColor           *valueColor;
     
+    int               divisor;
+    NSString          *formatter;
+    NSString          *valueText;
+    
     CGFloat           fontSize;
     
     NSTextField       *valueEditor;
@@ -42,6 +46,8 @@ typedef enum tagLMDialStyle {
 @property int maximum;
 @property int stepping;
 @property int value;
+@property int divisor;
+@property (copy) NSString *formatter;
 
 @property BOOL showValue;
 @property CGFloat fontSize;
