@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.02">
+<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.03">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
 		<string key="IBDocument.SystemVersion">9G55</string>
-		<string key="IBDocument.InterfaceBuilderVersion">672</string>
+		<string key="IBDocument.InterfaceBuilderVersion">677</string>
 		<string key="IBDocument.AppKitVersion">949.43</string>
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
@@ -16,6 +16,15 @@
 			<string>com.apple.InterfaceBuilderKit</string>
 			<string>com.lucidmac.LMDial</string>
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+		</object>
+		<object class="NSMutableDictionary" key="IBDocument.Metadata">
+			<bool key="EncodedWithXMLCoder">YES</bool>
+			<object class="NSArray" key="dict.sortedKeys">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+			</object>
+			<object class="NSMutableArray" key="dict.values">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+			</object>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.RootObjects" id="1048">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1122,15 +1131,12 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{146, 243}, {40, 40}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<integer value="0" key="lmdial.style" id="8"/>
-							<integer value="50" key="lmdial.value"/>
-							<reference key="lmdial.minimum" ref="8"/>
-							<integer value="100" key="lmdial.maximum"/>
+							<boolean value="YES" key="lmdial.enabled" id="5"/>
+							<integer value="2" key="lmdial.style"/>
+							<integer value="0" key="lmdial.value" id="8"/>
+							<integer value="-50" key="lmdial.minimum"/>
+							<integer value="50" key="lmdial.maximum"/>
 							<integer value="1" key="lmdial.stepping" id="9"/>
-							<object class="NSColor" key="lmdial.backgroundColor" id="612502015">
-								<int key="NSColorSpace">3</int>
-								<bytes key="NSWhite">MC42NjY2NjY2OQA</bytes>
-							</object>
 							<object class="NSColor" key="lmdial.onBorderColor" id="161440823">
 								<int key="NSColorSpace">1</int>
 								<bytes key="NSRGB">MCAwIDEAA</bytes>
@@ -1150,18 +1156,20 @@
 							<reference key="lmdial.valueColor" ref="342231181"/>
 							<real value="6.000000e+00" key="lmdial.fontSize"/>
 							<reference key="lmdial.showValue" ref="9"/>
+							<string key="lmdial.formatter">%+d</string>
+							<reference key="lmdial.divisor" ref="8"/>
 						</object>
 						<object class="LMDialView" id="185787401">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{300, 243}, {40, 40}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="lmdial.enabled" ref="5"/>
 							<reference key="lmdial.style" ref="9"/>
 							<integer value="50" key="lmdial.value"/>
 							<reference key="lmdial.minimum" ref="8"/>
 							<integer value="127" key="lmdial.maximum"/>
 							<reference key="lmdial.stepping" ref="9"/>
-							<reference key="lmdial.backgroundColor" ref="612502015"/>
 							<reference key="lmdial.onBorderColor" ref="161440823"/>
 							<reference key="lmdial.onFillColor" ref="325126768"/>
 							<reference key="lmdial.offBorderColor" ref="342231181"/>
@@ -1169,6 +1177,8 @@
 							<reference key="lmdial.valueColor" ref="342231181"/>
 							<real value="8.000000e+00" key="lmdial.fontSize"/>
 							<reference key="lmdial.showValue" ref="9"/>
+							<string key="lmdial.formatter">+%d</string>
+							<reference key="lmdial.divisor" ref="8"/>
 						</object>
 						<object class="NSTextField" id="151735914">
 							<reference key="NSNextResponder" ref="439893737"/>
@@ -1190,7 +1200,10 @@
 									<int key="NSColorSpace">6</int>
 									<string key="NSCatalogName">System</string>
 									<string key="NSColorName">controlColor</string>
-									<reference key="NSColor" ref="612502015"/>
+									<object class="NSColor" key="NSColor">
+										<int key="NSColorSpace">3</int>
+										<bytes key="NSWhite">MC42NjY2NjY2OQA</bytes>
+									</object>
 								</object>
 								<object class="NSColor" key="NSTextColor" id="642621592">
 									<int key="NSColorSpace">6</int>
@@ -3129,7 +3142,6 @@
 					<string>354.IBPluginDependency</string>
 					<string>354.ImportedFromIB2</string>
 					<string>371.IBEditorWindowLastContentRect</string>
-					<string>371.IBPluginDependency</string>
 					<string>371.IBWindowTemplateEditedContentRect</string>
 					<string>371.NSWindowTemplate.visibleAtLaunch</string>
 					<string>371.editorWindowContentRectSynchronizationRect</string>
@@ -3182,6 +3194,7 @@
 					<string>417.IBPluginDependency</string>
 					<string>418.IBPluginDependency</string>
 					<string>419.IBPluginDependency</string>
+					<string>420.IBPluginDependency</string>
 					<string>452.IBPluginDependency</string>
 					<string>453.IBPluginDependency</string>
 					<string>454.IBPluginDependency</string>
@@ -3368,7 +3381,6 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>{{579, 329}, {480, 360}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{579, 329}, {480, 360}}</string>
 					<reference ref="9"/>
 					<string>{{33, 99}, {480, 360}}</string>
@@ -3389,6 +3401,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{523, 2}, {178, 283}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

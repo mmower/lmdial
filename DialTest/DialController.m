@@ -13,7 +13,7 @@
 
 - (id)init {
   if( ( self = [super init] ) ) {
-    v1 = 50;
+    v1 = 0;
     v2 = 50;
   }
   
