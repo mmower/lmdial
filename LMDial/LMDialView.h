@@ -10,7 +10,8 @@
 
 typedef enum tagLMDialStyle {
   abletonLive,
-  logicPro
+  logicPro,
+  logicPan
 } LMDialStyle;
 
 @class LMDialEditWindow;
@@ -26,9 +27,13 @@ typedef enum tagLMDialStyle {
     BOOL              showValue;
 
     NSColor           *onBorderColor;
+    NSColor           *localOnBorderColor;
     NSColor           *onFillColor;
+    NSColor           *localOnFillColor;
     NSColor           *offBorderColor;
+    NSColor           *localOffBorderColor;
     NSColor           *offFillColor;
+    NSColor           *localOffFillColor;
     NSColor           *valueColor;
     
     int               divisor;
@@ -38,6 +43,8 @@ typedef enum tagLMDialStyle {
     CGFloat           fontSize;
     
     NSTextField       *valueEditor;
+    
+    float             alpha;
 }
 
 @property BOOL enabled;
@@ -58,11 +65,5 @@ typedef enum tagLMDialStyle {
 @property (assign) NSColor *offFillColor;
 @property (assign) NSColor *valueColor;
 
-- (void)drawAbletonLiveStyleDial:(NSRect)bounds;
-- (void)drawLogicProStyleDial:(NSRect)bounds;
-- (void)drawValue:(NSRect)bounds;
-- (void)drawText:(NSString *)text boundedBy:(NSRect)bounds;
-
-- (void)updateBoundValue;
 
 @end
