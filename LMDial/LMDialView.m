@@ -528,10 +528,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     [localOffBorderColor set];
     [path stroke];
     
-    NSLog( @"a = %d", abs(minimum) - ( value - minimum ) );
-    
     float angle = 90 + ( 150 * ( (float)( abs(minimum) - ( value - minimum ) ) / abs(minimum) ) );
-    NSLog( @"angle = %+3.2f", angle );
     path = [NSBezierPath bezierPath];
 
     [path moveToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( angle ) )];
