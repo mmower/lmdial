@@ -34,7 +34,6 @@
 		C08787290A49DE9A00E9B151 /* LMDial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259C576FE90428111CA0C5A /* LMDial.m */; };
 		C0A47C500A523B730004BDC3 /* LMDialInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05B20D80A48CB530099B9E5 /* LMDialInspector.xib */; };
 		C0D069560A49DF9100C95564 /* InterfaceBuilderKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D069550A49DF9100C95564 /* InterfaceBuilderKit.framework */; };
-		C92C33450F2D0CC8003B98A1 /* DialEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = C92C33440F2D0CC8003B98A1 /* DialEditor.xib */; };
 		C932E65B0F215A3C0081AD74 /* LMDial.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 53DF68FD067E5B5A0090B5B0 /* LMDial.framework */; };
 		C9DCFEC10F1D59BE0011876A /* LMDial.ibplugin in Resources */ = {isa = PBXBuildFile; fileRef = 8D1AC9740486D14A00FE50C9 /* LMDial.ibplugin */; };
 		D1AEDE470A6C289C0010C343 /* LMDialLibrary.nib in Resources */ = {isa = PBXBuildFile; fileRef = D1AEDE460A6C289C0010C343 /* LMDialLibrary.nib */; };
@@ -98,7 +97,6 @@
 		C059ACDC0A49E0A20079D97B /* LMDialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMDialView.m; sourceTree = "<group>"; };
 		C05B20D80A48CB530099B9E5 /* LMDialInspector.xib */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = file.xib; name = LMDialInspector.xib; path = English.lproj/LMDialInspector.xib; sourceTree = "<group>"; };
 		C0D069550A49DF9100C95564 /* InterfaceBuilderKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InterfaceBuilderKit.framework; path = /Developer/Library/Frameworks/InterfaceBuilderKit.framework; sourceTree = "<absolute>"; };
-		C92C33440F2D0CC8003B98A1 /* DialEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DialEditor.xib; sourceTree = "<group>"; };
 		D1AEDE460A6C289C0010C343 /* LMDialLibrary.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = LMDialLibrary.nib; path = English.lproj/LMDialLibrary.nib; sourceTree = "<group>"; };
 		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -143,7 +141,6 @@
 				8D1AC9730486D14A00FE50C9 /* Info.plist */,
 				53DF68FE067E5B5A0090B5B0 /* LMDial-Info.plist */,
 				8D1AC97F0486D23B00FE50C9 /* InfoPlist.strings */,
-				C92C33440F2D0CC8003B98A1 /* DialEditor.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -327,7 +324,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9DCFEC10F1D59BE0011876A /* LMDial.ibplugin in Resources */,
-				C92C33450F2D0CC8003B98A1 /* DialEditor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
