@@ -163,7 +163,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     }
     
     if( [coder containsValueForKey:@"lmdial.divisor"] ) {
-      [self setValue:[[coder decodeObjectForKey:@"lmdial.divisor"] intValue]];
+      [self setDivisor:[[coder decodeObjectForKey:@"lmdial.divisor"] intValue]];
     } else {
       [self setDivisor:1];
     }
@@ -208,14 +208,12 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)setEnabled:(BOOL)nowEnabled {
-  // [self willChangeValueForKey:@"enabled"];
   if( nowEnabled != enabled ) {
     enabled = nowEnabled;
     alpha = enabled ? 1.0 : 0.5;
     [self updateLocalColors];
     [self setNeedsDisplay:YES];
   }
-  // [self didChangeValueForKey:@"enabled"];
 }
 
 @dynamic style;
@@ -225,9 +223,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)setStyle:(LMDialStyle)newStyle {
-  // [self willChangeValueForKey:@"style"];
   style = newStyle;
-  // [self didChangeValueForKey:@"style"];
   [self setNeedsDisplay:YES];
 }
 
@@ -243,10 +239,8 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   } else if( newValue < minimum ) {
     newValue = minimum;
   }
-  // [self willChangeValueForKey:@"value"];
   value = newValue;
   [self updateValueText];
-  // [self didChangeValueForKey:@"value"];
   [self setNeedsDisplay:YES];
 }
 
@@ -257,9 +251,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)setMinimum:(int)newMinimum {
-  // [self willChangeValueForKey:@"minimum"];
   minimum = newMinimum;
-  // [self didChangeValueForKey:@"minimum"];
   
   if( value < minimum ) {
     [self setValue:minimum];
@@ -274,9 +266,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)setMaximum:(int)newMaximum {
-  // [self willChangeValueForKey:@"maximum"];
   maximum = newMaximum;
-  // [self didChangeValueForKey:@"maximum"];
   
   if( value > maximum ) {
     [self setValue:maximum];
@@ -318,9 +308,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)setShowValue:(BOOL)nowShowValue {
-  // [self willChangeValueForKey:@"showValue"];
   showValue = nowShowValue;
-  // [self didChangeValueForKey:@"showValue"];
   [self setNeedsDisplay:YES];
 }
 
@@ -331,12 +319,10 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)setOnBorderColor:(NSColor *)newOnBorderColor {
-  // [self willChangeValueForKey:@"onBorderColor"];
   [onBorderColor release];
   onBorderColor = [newOnBorderColor retain];
   [localOnBorderColor release];
   localOnBorderColor = [[onBorderColor colorWithAlphaComponent:alpha] retain];
-  // [self didChangeValueForKey:@"onBorderColor"];
   [self setNeedsDisplay:YES];
 }
 
@@ -347,12 +333,10 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)setOnFillColor:(NSColor *)newOnFillColor {
-  // [self willChangeValueForKey:@"onFillColor"];
   [onFillColor release];
   onFillColor = [newOnFillColor retain];
   [localOnFillColor release];
   localOnFillColor = [[onFillColor colorWithAlphaComponent:alpha] retain];
-  // [self didChangeValueForKey:@"onFillColor"];
   [self setNeedsDisplay:YES];
 }
 
@@ -363,12 +347,10 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)setOffBorderColor:(NSColor *)newOffBorderColor {
-  // [self willChangeValueForKey:@"offBorderColor"];
   [offBorderColor release];
   offBorderColor = [newOffBorderColor retain];
   [localOffBorderColor release];
   localOffBorderColor = [[offBorderColor colorWithAlphaComponent:alpha] retain];
-  // [self didChangeValueForKey:@"offBorderColor"];
   [self setNeedsDisplay:YES];
 }
 
@@ -379,12 +361,10 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)setOffFillColor:(NSColor *)newOffFillColor {
-  // [self willChangeValueForKey:@"offFillColor"];
   [offFillColor release];
   offFillColor = [newOffFillColor retain];
   [localOffFillColor release];
   localOffFillColor = [[offFillColor colorWithAlphaComponent:alpha] retain];
-  // [self didChangeValueForKey:@"offFillColor"];
   [self setNeedsDisplay:YES];
 }
 
@@ -395,9 +375,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)setValueColor:(NSColor *)newValueColor {
-  // [self willChangeValueForKey:@"valueColor"];
   valueColor = newValueColor;
-  // [self didChangeValueForKey:@"valueColor"];
   [self setNeedsDisplay:YES];
 }
 
@@ -408,9 +386,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)setFontSize:(CGFloat)newFontSize {
-  // [self willChangeValueForKey:@"fontSize"];
   fontSize = newFontSize;
-  // [self didChangeValueForKey:@"fontSize"];
   [self setNeedsDisplay:YES];
 }
 
@@ -685,6 +661,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
   [valueEditor removeFromSuperview];
+  [valueEditor autorelease];
   [self setEnabled:YES];
   [self updateBoundValue];
 }
@@ -693,7 +670,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [valueText release];
   
   if( divisor > 1 ) {
-    valueText = [[NSString stringWithFormat:formatter,((float)value)/divisor] retain];
+    valueText = [[NSString stringWithFormat:formatter,(((float)value) / divisor)] retain];
   } else {
     valueText = [[NSString stringWithFormat:formatter,value] retain];
   }
