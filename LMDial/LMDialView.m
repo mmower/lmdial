@@ -90,30 +90,6 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
       [self setEnabled:YES];
     }
     
-    if( [coder containsValueForKey:@"lmdial.style"] ) {
-      [self setStyle:[[coder decodeObjectForKey:@"lmdial.style"] intValue]];
-    } else {
-      [self setStyle:abletonLive];
-    }
-    
-    if( [coder containsValueForKey:@"lmdial.minimum"] ) {
-      [self setMinimum:[[coder decodeObjectForKey:@"lmdial.minimum"] intValue]];
-    } else {
-      [self setMinimum:0];
-    }
-    
-    if( [coder containsValueForKey:@"lmdial.maximum"] ) {
-      [self setMaximum:[[coder decodeObjectForKey:@"lmdial.maximum"] intValue]];
-    } else {
-      [self setMaximum:100];
-    }
-    
-    if( [coder containsValueForKey:@"lmdial.stepping"] ) {
-      [self setStepping:[[coder decodeObjectForKey:@"lmdial.stepping"] intValue]];
-    } else {
-      [self setStepping:1];
-    }
-    
     if( [coder containsValueForKey:@"lmdial.onBorderColor"] ) {
       [self setOnBorderColor:[coder decodeObjectForKey:@"lmdial.onBorderColor"]];
     } else {
@@ -166,6 +142,30 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
       [self setDivisor:[[coder decodeObjectForKey:@"lmdial.divisor"] intValue]];
     } else {
       [self setDivisor:1];
+    }
+    
+    if( [coder containsValueForKey:@"lmdial.style"] ) {
+      [self setStyle:[[coder decodeObjectForKey:@"lmdial.style"] intValue]];
+    } else {
+      [self setStyle:abletonLive];
+    }
+    
+    if( [coder containsValueForKey:@"lmdial.minimum"] ) {
+      [self setMinimum:[[coder decodeObjectForKey:@"lmdial.minimum"] intValue]];
+    } else {
+      [self setMinimum:0];
+    }
+    
+    if( [coder containsValueForKey:@"lmdial.maximum"] ) {
+      [self setMaximum:[[coder decodeObjectForKey:@"lmdial.maximum"] intValue]];
+    } else {
+      [self setMaximum:100];
+    }
+    
+    if( [coder containsValueForKey:@"lmdial.stepping"] ) {
+      [self setStepping:[[coder decodeObjectForKey:@"lmdial.stepping"] intValue]];
+    } else {
+      [self setStepping:1];
     }
     
     // Initialize the value last and, especially, after the formatter (since, if it's null, we'll get an exception)
