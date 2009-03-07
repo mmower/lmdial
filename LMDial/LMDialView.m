@@ -115,7 +115,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     }
     
     if( [coder containsValueForKey:@"lmdial.showValue"] ) {
-      [self setShowValue:[[coder decodeObjectForKey:@"lmdial.showValue"] intValue]];
+      [self setShowValue:[[coder decodeObjectForKey:@"lmdial.showValue"] boolValue]];
     } else {
       [self setShowValue:YES];
     }
@@ -145,7 +145,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     }
     
     if( [coder containsValueForKey:@"lmdial.style"] ) {
-      [self setStyle:[[coder decodeObjectForKey:@"lmdial.style"] intValue]];
+      [self setStyle:(LMDialStyle)[[coder decodeObjectForKey:@"lmdial.style"] intValue]];
     } else {
       [self setStyle:abletonLive];
     }
@@ -194,7 +194,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [coder encodeObject:offFillColor forKey:@"lmdial.offFillColor"];
   [coder encodeObject:valueColor forKey:@"lmdial.valueColor"];
   [coder encodeObject:[NSNumber numberWithFloat:[self fontSize]] forKey:@"lmdial.fontSize"];
-  [coder encodeObject:[NSNumber numberWithInt:[self showValue]] forKey:@"lmdial.showValue"];
+  [coder encodeObject:[NSNumber numberWithBool:[self showValue]] forKey:@"lmdial.showValue"];
   [coder encodeObject:formatter forKey:@"lmdial.formatter"];
   [coder encodeObject:[NSNumber numberWithInt:[self divisor]] forKey:@"lmdial.divisor"];
 }
@@ -588,7 +588,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   
   NSColor *localValueColor = [valueColor colorWithAlphaComponent:([self enabled] ? 1.0 : 0.5)];
   
-  NSMutableDictionary *textAttributes = [[NSMutableDictionary alloc] init];
+  NSMutableDictionary *textAttributes = [[[NSMutableDictionary alloc] init] autorelease];
   [textAttributes setObject:textFont forKey:NSFontAttributeName];
   [textAttributes setObject:localValueColor forKey:NSForegroundColorAttributeName];
   
