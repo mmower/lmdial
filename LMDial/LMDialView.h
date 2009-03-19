@@ -17,53 +17,52 @@ typedef enum tagLMDialStyle {
 @class LMDialEditWindow;
 
 @interface LMDialView : NSView {
-    BOOL              enabled;
-    LMDialStyle       style;
-    int               minimum;
-    int               maximum;
-    int               stepping;
-    int               value;
+    BOOL              mEnabled;
+    LMDialStyle       mStyle;
+    int               mMinimum;
+    int               mMaximum;
+    int               mStepping;
+    int               mValue;
     
-    BOOL              showValue;
+    BOOL              mShowValue;
 
-    NSColor           *onBorderColor;
-    NSColor           *localOnBorderColor;
-    NSColor           *onFillColor;
-    NSColor           *localOnFillColor;
-    NSColor           *offBorderColor;
-    NSColor           *localOffBorderColor;
-    NSColor           *offFillColor;
-    NSColor           *localOffFillColor;
-    NSColor           *valueColor;
+    NSColor           *mOnBorderColor;
+    NSColor           *mLocalOnBorderColor;
+    NSColor           *mOnFillColor;
+    NSColor           *mLocalOnFillColor;
+    NSColor           *mOffBorderColor;
+    NSColor           *mLocalOffBorderColor;
+    NSColor           *mOffFillColor;
+    NSColor           *mLocalOffFillColor;
+    NSColor           *mValueColor;
     
-    int               divisor;
-    NSString          *formatter;
-    NSString          *valueText;
+    int               mDivisor;
+    NSString          *mFormatter;
+    NSString          *mValueText;
     
-    CGFloat           fontSize;
+    CGFloat           mFontSize;
     
-    NSTextField       *valueEditor;
+    NSTextField       *mValueEditor;
     
-    float             alpha;
+    float             mAlpha;
 }
 
-@property BOOL enabled;
-@property LMDialStyle style;
-@property int minimum;
-@property int maximum;
-@property int stepping;
-@property int value;
-@property int divisor;
-@property (copy) NSString *formatter;
+@property (getter=enabled,setter=setEnabled:) BOOL mEnabled;
+@property (getter=style,setter=setStyle:) LMDialStyle mStyle;
+@property (getter=minimum,setter=setMinimum:) int mMinimum;
+@property (getter=maximum,setter=setMaximum:) int mMaximum;
+@property (getter=stepping,setter=setStepping:) int mStepping;
+@property (getter=value,setter=setValue:) int mValue;
+@property (getter=divisor,setter=setDivisor:) int mDivisor;
+@property (getter=formatter,setter=setFormatter:,copy) NSString *mFormatter;
 
-@property BOOL showValue;
-@property CGFloat fontSize;
+@property (getter=showValue,setter=setShowValue:) BOOL mShowValue;
+@property (getter=fontSize,setter=setFontSize:) CGFloat mFontSize;
 
-@property (assign) NSColor *onBorderColor;
-@property (assign) NSColor *onFillColor;
-@property (assign) NSColor *offBorderColor;
-@property (assign) NSColor *offFillColor;
-@property (assign) NSColor *valueColor;
-
+@property (getter=onBorderColor,setter=setOnBorderColor:,assign) NSColor *mOnBorderColor;
+@property (getter=onFillColor,setter=setOnFillColor:,assign) NSColor *mOnFillColor;
+@property (getter=offBorderColor,setter=setOffBorderColor:,assign) NSColor *mOffBorderColor;
+@property (getter=offFillColor,setter=setOffFillColor:,assign) NSColor *mOffFillColor;
+@property (getter=valueColor,setter=setValueColor:,assign) NSColor *mValueColor;
 
 @end
