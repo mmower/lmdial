@@ -12,6 +12,7 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		C932E67A0F215C010081AD74 /* DialController.m in Sources */ = {isa = PBXBuildFile; fileRef = C932E6790F215C010081AD74 /* DialController.m */; };
+		C994F0590F7263B10028FB57 /* LMDial.ibplugin in Resources */ = {isa = PBXBuildFile; fileRef = C9BF35F30F2FD2AA006E306B /* LMDial.ibplugin */; };
 		C9BF35F60F2FD2BB006E306B /* LMDial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BF35F50F2FD2AA006E306B /* LMDial.framework */; };
 		C9BF35F70F2FD2C1006E306B /* LMDial.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = C9BF35F50F2FD2AA006E306B /* LMDial.framework */; };
 /* End PBXBuildFile section */
@@ -230,6 +231,7 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				C994F0590F7263B10028FB57 /* LMDial.ibplugin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,8 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="57"/>
 			<integer value="372"/>
+			<integer value="57"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1267,7 +1267,7 @@
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="518695256"/>
 								<reference key="NSControlView" ref="337956628"/>
-								<double key="NSMaxValue">1.000000e+02</double>
+								<double key="NSMaxValue">1.270000e+02</double>
 								<double key="NSMinValue">0.000000e+00</double>
 								<double key="NSValue">5.000000e+01</double>
 								<double key="NSAltIncValue">0.000000e+00</double>
