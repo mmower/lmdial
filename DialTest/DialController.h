@@ -8,22 +8,28 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class LMDialView;
+
 @interface DialController : NSObject {
+  IBOutlet LMDialView *dial1;
   int v1;
   int v1min;
   int v1max;
   int v1step;
   
+  IBOutlet LMDialView *dial2;
   int v2;
   int v2min;
   int v2max;
   int v2step;
   
+  IBOutlet LMDialView *dial3;
   int v3;
   int v3min;
   int v3max;
   int v3step;
-
+  
+  IBOutlet LMDialView *dial4;
   int v4;
   int v4min;
   int v4max;

@@ -8,6 +8,8 @@
 
 #import "DialController.h"
 
+#import <LMDial/LMDialView.h>
+
 @implementation DialController
 
 - (id)init {
