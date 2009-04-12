@@ -50,40 +50,40 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 - (void)dealloc {
-  [mFormatter release];
-  [mValueText release];
-  [mOnBorderColor release];
-  [mLocalOnBorderColor release];
-  [mOnFillColor release];
-  [mLocalOnFillColor release];
-  [mOffBorderColor release];
-  [mOffFillColor release];
-  [mLocalOffBorderColor release];
-  [mLocalOffFillColor release];
-  [mValueColor release];
+  [_formatter release];
+  [_valueText release];
+  [_onBorderColor release];
+  [_localOnBorderColor release];
+  [_onFillColor release];
+  [_localOnFillColor release];
+  [_offBorderColor release];
+  [_offFillColor release];
+  [_localOffBorderColor release];
+  [_localOffFillColor release];
+  [_valueColor release];
   [super dealloc];
 }
 
 - (id)initWithFrame:(NSRect)frame {
   if( ( self = [super initWithFrame:frame] ) ) {
-    mEnabled        = YES;
-    mStyle          = abletonLive;
-    mValue          = 0;
-    mMinimum        = 0;
-    mMaximum        = 100;
-    mStepping       = 1;
-    mShowValue      = YES;
+    _enabled        = YES;
+    _style          = abletonLive;
+    _value          = 0;
+    _minimum        = 0;
+    _maximum        = 100;
+    _stepping       = 1;
+    _showValue      = YES;
     
-    mOnBorderColor  = [NSColor blueColor];
-    mOnFillColor    = [NSColor cyanColor];
-    mOffBorderColor = [NSColor blackColor];
-    mOffFillColor   = [NSColor grayColor];
-    mValueColor     = [NSColor blackColor];
+    _onBorderColor  = [NSColor blueColor];
+    _onFillColor    = [NSColor cyanColor];
+    _offBorderColor = [NSColor blackColor];
+    _offFillColor   = [NSColor grayColor];
+    _valueColor     = [NSColor blackColor];
     
-    mDivisor        = 1;
-    mFormatter      = [@"%+d" retain];
+    _divisor        = 1;
+    _formatter      = [@"%+d" retain];
     
-    mFontSize       = 6.0;
+    _fontSize       = 6.0;
   }
   
   return self;
@@ -210,25 +210,27 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 
 #pragma mark Properties
 
-@synthesize mEnabled;
+@synthesize enabled = _enabled;
 
 - (void)setEnabled:(BOOL)enabled {
-  if( enabled != mEnabled ) {
-    mEnabled = enabled;
-    mAlpha = mEnabled ? 1.0 : 0.5;
+  if( enabled != _enabled ) {
+    _enabled = enabled;
+    _alpha = _enabled ? 1.0 : 0.5;
     [self updateLocalColors];
     [self setNeedsDisplay:YES];
   }
 }
 
-@synthesize mStyle;
+@synthesize style = _style;
 
 - (void)setStyle:(LMDialStyle)style {
-  mStyle = style;
-  [self setNeedsDisplay:YES];
+  if( style != _style ) {
+    _style = style;
+    [self setNeedsDisplay:YES];
+  }
 }
 
-@synthesize mValue;
+@synthesize value = _value;
 
 - (void)setValue:(int)value {
   if( value > [self maximum] ) {
@@ -236,111 +238,111 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   } else if( value < [self minimum] ) {
     value = [self minimum];
   }
-  mValue = value;
+  _value = value;
   [self updateValueText];
   [self setNeedsDisplay:YES];
 }
 
-@synthesize mMinimum;
+@synthesize minimum = _minimum;
 
 - (void)setMinimum:(int)minimum {
-  mMinimum = minimum;
+  _minimum = minimum;
   
-  if( [self value] < mMinimum ) {
-    [self setValue:mMinimum];
+  if( [self value] < minimum ) {
+    [self setValue:minimum];
   }
   [self setNeedsDisplay:YES];
 }
 
-@synthesize mMaximum;
+@synthesize maximum = _maximum;
 
 - (void)setMaximum:(int)maximum {
-  mMaximum = maximum;
+  _maximum = maximum;
   
-  if( [self value] > mMaximum ) {
-    [self setValue:mMaximum];
+  if( [self value] > maximum ) {
+    [self setValue:maximum];
   }
   [self setNeedsDisplay:YES];
 }
 
-@synthesize mDivisor;
+@synthesize divisor = _divisor;
 
 - (void)setDivisor:(int)divisor {
-  mDivisor = divisor;
+  _divisor = divisor;
   [self updateValueText];
   [self setNeedsDisplay:YES];
 }
 
-@synthesize mFormatter;
+@synthesize formatter = _formatter;
 
 - (void)setFormatter:(NSString *)formatter {
-  [mFormatter release];
-  mFormatter = [formatter copy];
+  [_formatter release];
+  _formatter = [formatter copy];
   [self updateValueText];
   [self setNeedsDisplay:YES];
 }
 
-@synthesize mStepping;
+@synthesize stepping = _stepping;
 
-@synthesize mShowValue;
+@synthesize showValue = _showValue;
 
 - (void)setShowValue:(BOOL)showValue {
-  mShowValue = showValue;
+  _showValue = showValue;
   [self setNeedsDisplay:YES];
 }
 
-@synthesize mOnBorderColor;
+@synthesize onBorderColor = _onBorderColor;
 
 - (void)setOnBorderColor:(NSColor *)onBorderColor {
-  [mOnBorderColor release];
-  mOnBorderColor = [onBorderColor retain];
-  [mLocalOnBorderColor release];
-  mLocalOnBorderColor = [[mOnBorderColor colorWithAlphaComponent:mAlpha] retain];
+  [_onBorderColor release];
+  _onBorderColor = [onBorderColor retain];
+  [_localOnBorderColor release];
+  _localOnBorderColor = [[_onBorderColor colorWithAlphaComponent:_alpha] retain];
   [self setNeedsDisplay:YES];
 }
 
-@synthesize mOnFillColor;
+@synthesize onFillColor = _onFillColor;
 
 - (void)setOnFillColor:(NSColor *)onFillColor {
-  [mOnFillColor release];
-  mOnFillColor = [onFillColor retain];
-  [mLocalOnFillColor release];
-  mLocalOnFillColor = [[mOnFillColor colorWithAlphaComponent:mAlpha] retain];
+  [_onFillColor release];
+  _onFillColor = [onFillColor retain];
+  [_localOnFillColor release];
+  _localOnFillColor = [[_onFillColor colorWithAlphaComponent:_alpha] retain];
   [self setNeedsDisplay:YES];
 }
 
-@synthesize mOffBorderColor;
+@synthesize offBorderColor = _offBorderColor;
 
 - (void)setOffBorderColor:(NSColor *)offBorderColor {
-  [mOffBorderColor release];
-  mOffBorderColor = [offBorderColor retain];
-  [mLocalOffBorderColor release];
-  mLocalOffBorderColor = [[mOffBorderColor colorWithAlphaComponent:mAlpha] retain];
+  [_offBorderColor release];
+  _offBorderColor = [offBorderColor retain];
+  [_localOffBorderColor release];
+  _localOffBorderColor = [[_offBorderColor colorWithAlphaComponent:_alpha] retain];
   [self setNeedsDisplay:YES];
 }
 
-@synthesize mOffFillColor;
+@synthesize offFillColor = _offFillColor;
 
 - (void)setOffFillColor:(NSColor *)offFillColor {
-  [mOffFillColor release];
-  mOffFillColor = [offFillColor retain];
-  [mLocalOffFillColor release];
-  mLocalOffFillColor = [[mOffFillColor colorWithAlphaComponent:mAlpha] retain];
+  [_offFillColor release];
+  _offFillColor = [offFillColor retain];
+  [_localOffFillColor release];
+  _localOffFillColor = [[_offFillColor colorWithAlphaComponent:_alpha] retain];
   [self setNeedsDisplay:YES];
 }
 
-@synthesize mValueColor;
+@synthesize valueColor = _valueColor;
 
 - (void)setValueColor:(NSColor *)valueColor {
-  [mValueColor release];
-  mValueColor = [valueColor retain];
+  [_valueColor release];
+  _valueColor = [valueColor retain];
   [self setNeedsDisplay:YES];
 }
 
-@synthesize mFontSize;
+@synthesize fontSize = _fontSize;
 
 - (void)setFontSize:(CGFloat)fontSize {
-  mFontSize = fontSize;
+  _fontSize = fontSize;
   [self setNeedsDisplay:YES];
 }
 
@@ -373,13 +375,13 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   
   NSBezierPath *path = [NSBezierPath bezierPath];
   [path setLineWidth:2.4];
-  [mLocalOffBorderColor set];
+  [_localOffBorderColor set];
   [path appendBezierPathWithArcWithCenter:centre radius:radius startAngle:-60 endAngle:angle clockwise:NO];
   [path stroke];
   
   path = [NSBezierPath bezierPath];
   [path setLineWidth:2.4];
-  [mLocalOnBorderColor set];
+  [_localOnBorderColor set];
   [path appendBezierPathWithArcWithCenter:centre radius:radius startAngle:angle endAngle:240 clockwise:NO];
   [path moveToPoint:centre];
   [path lineToPoint:NSPointOnCircumference( centre, radius, deg2rad( angle ) )];
@@ -402,9 +404,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( angle ) )];
   [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:angle endAngle:270 clockwise:NO];
   
-  [mLocalOnFillColor set];
+  [_localOnFillColor set];
   [path fill];
-  [mLocalOnBorderColor set];
+  [_localOnBorderColor set];
   [path stroke];
   
   path = [NSBezierPath bezierPath];
@@ -414,9 +416,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( -90 ) )];
   [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:-90 endAngle:angle clockwise:NO];
   
-  [mLocalOffFillColor set];
+  [_localOffFillColor set];
   [path fill];
-  [mLocalOffBorderColor set];
+  [_localOffBorderColor set];
   [path stroke];
   
   if( [self showValue] ) {
@@ -442,9 +444,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
   [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( -120 ) )];
   [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:-120 endAngle:-60 clockwise:NO];
   
-  [mLocalOffFillColor set];
+  [_localOffFillColor set];
   [path fill];
-  [mLocalOffBorderColor set];
+  [_localOffBorderColor set];
   [path stroke];
   
   if( [self value] < 0 ) {
@@ -457,9 +459,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( -60 ) )];
     [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:-60 endAngle:90 clockwise:NO];
     
-    [mLocalOffFillColor set];
+    [_localOffFillColor set];
     [path fill];
-    [mLocalOffBorderColor set];
+    [_localOffBorderColor set];
     [path stroke];
     
     float angle = 90 + ( 150 * ( (float)( abs([self minimum]) - ( [self value] - [self minimum] ) ) / abs([self minimum]) ) );
@@ -471,9 +473,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( 90 ) )];
     [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:90 endAngle:angle clockwise:NO];
     
-    [mLocalOnFillColor set];
+    [_localOnFillColor set];
     [path fill];
-    [mLocalOnBorderColor set];
+    [_localOnBorderColor set];
     [path stroke];
     
     path = [NSBezierPath bezierPath];
@@ -484,9 +486,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( angle ) )];
     [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:angle endAngle:240 clockwise:NO];
     
-    [mLocalOffFillColor set];
+    [_localOffFillColor set];
     [path fill];
-    [mLocalOffBorderColor set];
+    [_localOffBorderColor set];
     [path stroke];
   } else {
     // Draw positive segement complete
@@ -498,9 +500,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( 90 ) )];
     [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:90 endAngle:240 clockwise:NO];
     
-    [mLocalOffFillColor set];
+    [_localOffFillColor set];
     [path fill];
-    [mLocalOffBorderColor set];
+    [_localOffBorderColor set];
     [path stroke];
     
     float angle = -60 + ( 150 * ( (float)( [self maximum] - [self value] ) / [self maximum] ) );
@@ -513,9 +515,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( angle ) )];
     [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:angle endAngle:90 clockwise:NO];
     
-    [mLocalOnFillColor set];
+    [_localOnFillColor set];
     [path fill];
-    [mLocalOnBorderColor set];
+    [_localOnBorderColor set];
     [path stroke];
     
     path = [NSBezierPath bezierPath];
@@ -526,9 +528,9 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
     [path lineToPoint:NSPointOnCircumference( centre, innerRadius, deg2rad( -60 ) )];
     [path appendBezierPathWithArcWithCenter:centre radius:innerRadius startAngle:-60 endAngle:angle clockwise:NO];
     
-    [mLocalOffFillColor set];
+    [_localOffFillColor set];
     [path fill];
-    [mLocalOffBorderColor set];
+    [_localOffBorderColor set];
     [path stroke];
   }
   
@@ -539,7 +541,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 
 
 - (void)drawValue:(NSRect)bounds {
-  [self drawText:mValueText boundedBy:bounds];
+  [self drawText:_valueText boundedBy:bounds];
 }
 
 
@@ -582,7 +584,11 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 
 - (void)mouseDragged:(NSEvent *)event {
   if( [self enabled] ) {
-    int multiplier = 1;
+    float multiplier = 1.0;
+    
+    if( [event modifierFlags] & NSShiftKeyMask ) {
+      multiplier *= 0.5;
+    }
     
     if( [event modifierFlags] & NSControlKeyMask ) {
       multiplier *= 2;
@@ -621,30 +627,30 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 #pragma mark Value editing
 
 - (void)editValue {
-  mValueEditor = [[NSTextField alloc] initWithFrame:NSZeroRect];
-  NSRect editorFrame = NSMakeRect( [self frame].origin.x, [self frame].origin.y + [self frame].size.height / 4, [self frame].size.width, [[mValueEditor font] boundingRectForFont].size.height );
-  [mValueEditor setFrame:editorFrame];
+  _valueEditor = [[NSTextField alloc] initWithFrame:NSZeroRect];
+  NSRect editorFrame = NSMakeRect( [self frame].origin.x, [self frame].origin.y + [self frame].size.height / 4, [self frame].size.width, [[_valueEditor font] boundingRectForFont].size.height );
+  [_valueEditor setFrame:editorFrame];
   
-  [mValueEditor setDelegate:self];
-  [mValueEditor bind:@"value" toObject:self withKeyPath:@"value" options:nil];
-  [[[self window] contentView] addSubview:mValueEditor];
-  [[self window] makeFirstResponder:mValueEditor];
+  [_valueEditor setDelegate:self];
+  [_valueEditor bind:@"value" toObject:self withKeyPath:@"value" options:nil];
+  [[[self window] contentView] addSubview:_valueEditor];
+  [[self window] makeFirstResponder:_valueEditor];
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
-  [mValueEditor removeFromSuperview];
-  [mValueEditor autorelease];
+  [_valueEditor removeFromSuperview];
+  [_valueEditor autorelease];
   [self setEnabled:YES];
   [self updateBoundValue];
 }
 
 - (void)updateValueText {
-  [mValueText release];
+  [_valueText release];
   
   if( [self divisor] > 1 ) {
-    mValueText = [[NSString stringWithFormat:[self formatter],(((float)[self value]) / [self divisor])] retain];
+    _valueText = [[NSString stringWithFormat:[self formatter],(((float)[self value]) / [self divisor])] retain];
   } else {
-    mValueText = [[NSString stringWithFormat:[self formatter],[self value]] retain];
+    _valueText = [[NSString stringWithFormat:[self formatter],[self value]] retain];
   }
 }
 
@@ -652,14 +658,17 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 #pragma mark Housekeeping
 
 - (void)updateLocalColors {
-  [mLocalOnBorderColor release];
-  mLocalOnBorderColor = [[mOnBorderColor colorWithAlphaComponent:mAlpha] retain];
-  [mLocalOnFillColor release];
-  mLocalOnFillColor = [[mOnFillColor colorWithAlphaComponent:mAlpha] retain];
-  [mLocalOffBorderColor release];
-  mLocalOffBorderColor = [[mOffBorderColor colorWithAlphaComponent:mAlpha] retain];
-  [mLocalOffFillColor release];
-  mLocalOffFillColor = [[mOffFillColor colorWithAlphaComponent:mAlpha] retain];
+  [_localOnBorderColor release];
+  _localOnBorderColor = [[_onBorderColor colorWithAlphaComponent:_alpha] retain];
+  
+  [_localOnFillColor release];
+  _localOnFillColor = [[_onFillColor colorWithAlphaComponent:_alpha] retain];
+  
+  [_localOffBorderColor release];
+  _localOffBorderColor = [[_offBorderColor colorWithAlphaComponent:_alpha] retain];
+  
+  [_localOffFillColor release];
+  _localOffFillColor = [[_offFillColor colorWithAlphaComponent:_alpha] retain];
 }
 
 
