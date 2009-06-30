@@ -570,7 +570,7 @@ NSPoint NSPointOnCircumference( NSPoint centre, CGFloat radius, CGFloat theta ) 
 }
 
 
-- (BOOL)acceptsFirstMouse {
+- (BOOL)acceptsFirstMouse:(NSEvent *)event {
   return YES;
 }
 
