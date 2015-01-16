@@ -85,10 +85,10 @@
 		13F8B88807B434F6008AE28D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		13F8B88907B434F6008AE28D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		13F8B88A07B434F6008AE28D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		32DBCF980370C29C00C91783 /* LMDial_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMDial_Prefix.pch; sourceTree = "<group>"; };
 		53DF68FD067E5B5A0090B5B0 /* LMDial.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LMDial.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53DF68FE067E5B5A0090B5B0 /* LMDial-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LMDial-Info.plist"; sourceTree = "<group>"; };
 		54D33B2806778E3300C9C163 /* LMDialView.classdescription */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LMDialView.classdescription; sourceTree = "<group>"; };
+		83AA7CC61A68BFD700919356 /* LMDialHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMDialHeader.pch; sourceTree = "<group>"; };
 		8D1AC9730486D14A00FE50C9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1AC9740486D14A00FE50C9 /* LMDial.ibplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LMDial.ibplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1AC97B0486D23100FE50C9 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -141,6 +141,7 @@
 				8D1AC9730486D14A00FE50C9 /* Info.plist */,
 				53DF68FE067E5B5A0090B5B0 /* LMDial-Info.plist */,
 				8D1AC97F0486D23B00FE50C9 /* InfoPlist.strings */,
+				83AA7CC61A68BFD700919356 /* LMDialHeader.pch */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -206,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				C044829E0C3328F4006E818F /* LMDialViewIntegration.m */,
-				32DBCF980370C29C00C91783 /* LMDial_Prefix.pch */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -304,9 +304,16 @@
 /* Begin PBXProject section */
 		0259C573FE90428111CA0C5A /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+			};
 			buildConfigurationList = C056398B08A954F8003078D8 /* Build configuration list for PBXProject "LMDial" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 0259C574FE90428111CA0C5A /* LMDial */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -394,13 +401,13 @@
 		C056398008A954F8003078D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -409,6 +416,7 @@
 				INFOPLIST_FILE = "LMDial-Info.plist";
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				PRODUCT_NAME = LMDial;
+				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
 				WARNING_CFLAGS = "-Wall";
 			};
@@ -417,11 +425,11 @@
 		C056398108A954F8003078D8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
@@ -430,6 +438,7 @@
 				INSTALL_MODE_FLAG = "go-w,a+rX";
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				PRODUCT_NAME = LMDial;
+				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
 				WARNING_CFLAGS = "-Wall";
 			};
@@ -438,6 +447,7 @@
 		C056398408A954F8003078D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					$inherited,
@@ -449,10 +459,11 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = LMDial_Prefix.pch;
+				GCC_PREFIX_HEADER = LMDialHeader.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks/LMDial.framework/Resources";
 				PRODUCT_NAME = LMDial;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = ibplugin;
 			};
 			name = Debug;
@@ -460,6 +471,7 @@
 		C056398508A954F8003078D8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -469,10 +481,11 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(DEVELOPER_DIR)/Library/Frameworks\"";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = LMDial_Prefix.pch;
+				GCC_PREFIX_HEADER = LMDialHeader.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks/LMDial.framework/Resources";
 				PRODUCT_NAME = LMDial;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = ibplugin;
 			};
 			name = Release;
@@ -480,12 +493,14 @@
 		C056398808A954F8003078D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = All;
+				SDKROOT = macosx;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -497,9 +512,11 @@
 		C056398908A954F8003078D8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
 				PRODUCT_NAME = All;
+				SDKROOT = macosx;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -511,27 +528,27 @@
 		C056398C08A954F8003078D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_MODEL_TUNING = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		C056398D08A954F8003078D8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_MODEL_TUNING = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
