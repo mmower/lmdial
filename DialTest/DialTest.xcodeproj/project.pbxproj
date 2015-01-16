@@ -18,6 +18,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		83AA7CCD1A68C19800919356 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9BF35EC0F2FD2AA006E306B /* LMDial.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1AC9600486D14A00FE50C9;
+			remoteInfo = LMDial;
+		};
+		83AA7CD21A68C19D00919356 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9BF35EC0F2FD2AA006E306B /* LMDial.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 53DF68FC067E5B5A0090B5B0;
+			remoteInfo = LMDialFramework;
+		};
 		C9BF35F20F2FD2AA006E306B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9BF35EC0F2FD2AA006E306B /* LMDial.xcodeproj */;
@@ -177,6 +191,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				83AA7CD31A68C19D00919356 /* PBXTargetDependency */,
+				83AA7CCE1A68C19800919356 /* PBXTargetDependency */,
 			);
 			name = DialTest;
 			productInstallPath = "$(HOME)/Applications";
@@ -189,9 +205,15 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "DialTest" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* DialTest */;
 			projectDirPath = "";
 			projectReferences = (
@@ -249,6 +271,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		83AA7CCE1A68C19800919356 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LMDial;
+			targetProxy = 83AA7CCD1A68C19800919356 /* PBXContainerItemProxy */;
+		};
+		83AA7CD31A68C19D00919356 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LMDialFramework;
+			targetProxy = 83AA7CD21A68C19D00919356 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -273,6 +308,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -283,10 +319,10 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = DialTest_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = DialTest;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -294,6 +330,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -301,10 +338,10 @@
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = DialTest_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = DialTest;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
